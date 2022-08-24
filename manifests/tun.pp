@@ -13,6 +13,9 @@
 # [*cert*]
 #   Certificate to use for this tunnel
 #
+# [*keyfile*]
+#   Key to use for this tunnel
+#
 # [*client*]
 #   Whether this tunnel should be setup in client mode.
 #
@@ -69,6 +72,7 @@ define stunnel::tun (
   $cafile = '',
   $cert = 'UNSET',
   $client = false,
+  $keyfile = '',
   $options = [ ],
   $failover = 'rr',
   $template = 'stunnel/tun.erb',
@@ -193,6 +197,7 @@ define stunnel::tun (
     service { "stunnel-${name}":
       ensure    => $service_ensure_real,
       enable    => $service_enable,
+      provider  => $::stunnel::data::service_init_system, 
       require   => $service_require,
       before    => $service_before,
       subscribe => File[$config_file],
