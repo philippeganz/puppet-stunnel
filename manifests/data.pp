@@ -23,6 +23,30 @@ class stunnel::data {
         $service_init_system = 'sysv'
       }
     }
+    /Suse/: {
+      $package = [ 'stunnel' ]
+      $service = 'stunnel'
+      $bin_name = 'stunnel'
+      $bin_path = '/usr/sbin'
+      $config_dir = '/etc/stunnel'
+      $conf_d_dir = '/etc/stunnel/conf.d'
+      $cert_dir = '/etc/stunnel/certs'
+      $log_dir = '/var/log/stunnel'
+      $setgid = 'root'
+      $setuid = 'root'
+
+      if versioncmp($::operatingsystemrelease, '12.4') >= 0 {
+        $service_init_system = 'systemd'
+      } else {
+        $service_init_system = 'sysv'
+      }
+
+      if versioncmp($::operatingsystemrelease, '15') >= 0 {
+        $pid_dir = '/run'
+      } else {
+        $pid_dir = '/var/run'
+      }
+    }
     /Debian/: {
       $package = [ 'stunnel4', 'lsb-base' ]
       $service = 'stunnel'
