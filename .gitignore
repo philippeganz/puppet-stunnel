@@ -1,6 +1,1 @@
-pkg/
 spec/fixtures/*
-Gemfile.lock
-.ruby-version
-.rbenv-gemsets
-*.swp
