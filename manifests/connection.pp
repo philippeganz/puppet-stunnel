@@ -1,206 +1,225 @@
-# == Define: stunnel::tun
+# 
+# @summary 
+#   Establishes a new stunnel connection.
+# 
+# @param stunnel_name
+#   Name of the stunnel connection.
 #
-# Setup a secure tunnel
+# @param ensure
+#   Wheather the connection should be created or deleted.
 #
-# === Parameters
+# @param manage_service
+#   Wheather or not a service should be created for this connection.
+# 
+# @param active
+#   Weather the service should be running or not. Needs manage_service to be true.
+# 
+# @param enable
+#   Weather the service should be set to run at boot. Needs manage_service to be true.
+# 
+# @param client
+#   Client mode (remote service uses TLS).
+# 
+# @param accept
+#   Accept connections on specified address.
+#   If no host specified, defaults to all IPv4 addresses for the local host.
+#   To listen on all IPv6 addresses use: :::PORT
+# 
+# @param protocol
+#   Application protocol to negotiate TLS.
+#   This option enables initial, protocol-specific negotiation of the TLS encryption. 
+#   The protocol option should not be used with TLS encryption on a separate port.
+#   See official stunnel documentation for supported protocol.
+# 
+# @param protocol_host
+#   Host address for the protocol negotiations.
+#   For the 'connect' protocol negotiations, protocolHost specifies HOST:PORT of the final TLS server to be connected to by the proxy. 
+#   The proxy server directly connected by stunnel must be specified with the connect option.
+#   For the 'smtp' protocol negotiations, protocolHost controls the client SMTP HELO/EHLO value.
+# 
+# @param connect
+#   Connect to a remote address.
+#   If no host is specified, the host defaults to localhost.
+#   Multiple connect options are allowed in a single service section. If host resolves to multiple addresses and/or if multiple connect 
+#   options are specified, then the remote address is chosen using a round-robin algorithm.
 #
-# [*accept*]
-#   accept connections on the specified address.
+# @param failover
+#   Failover strategy for multiple "connect" targets.
+#   rr    round robin - fair load distribution
+#   prio  priority - use the order specified in config file
+#   default: prio
+# 
+# @param ca_file
+#   Load trusted CA certificates from a file.
+#   The loaded CA certificates will be used with the verifyChain and verifyPeer options.
+# 
+# @param ca_path
+#   Load trusted CA certificates from a directory.
+#   The loaded CA certificates will be used with the verifyChain and verifyPeer options. Note that the certificates in this directory 
+#   should be named XXXXXXXX.0 where XXXXXXXX is the hash value of the DER encoded subject of the cert.
+#   The hash algorithm has been changed in OpenSSL 1.0.0. It is required to c_rehash the directory on upgrade from OpenSSL 0.x.x to 
+#   OpenSSL 1.x.x or later.
+#   CApath path is relative to the chroot directory if specified.
+# 
+# @param cert_file
+#   Certificate chain file name.
+#   The parameter specifies the file containing certificates used by stunnel to authenticate itself against the remote client or server. 
+#   The file should contain the whole certificate chain starting from the actual server/client certificate, and ending with the 
+#   self-signed root CA certificate. The file must be either in PEM or P12 format.
+#   A certificate chain is required in server mode, and optional in client mode.
+#   This parameter is also used as the certificate identifier when a hardware engine is enabled.
+# 
+# @param key_file
+#   Private key for the certificate specified with cert option.
+#   A private key is needed to authenticate the certificate owner. Since this file should be kept secret it should only be readable by 
+#   its owner. On Unix systems you can use the following command:
+#   chmod 600 keyfile
+#   This parameter is also used as the private key identifier when a hardware engine is enabled.
+#   default: the value of the cert option
+# 
+# @param timeoutidle
+#   Time to keep an idle connection.
+# 
+# @param openssl_options
+#   OpenSSL library options.
+#   The parameter is the OpenSSL option name as described in the SSL_CTX_set_options(3ssl) manual, but without SSL_OP_ prefix. 
+#   stunnel -options lists the options found to be allowed in the current combination of stunnel and the OpenSSL library used to build it.
+#   Several option lines can be used to specify multiple options. An option name can be prepended with a dash ("-") to disable the option.
+#   Use sslVersionMax or sslVersionMin option instead of disabling specific TLS protocol versions when compiled with OpenSSL 1.1.0 or 
+#   later.
+# 
+# @param global_options
+#   Any supported global option currently not available in this define.
+# 
+# @param service_options
+#   Any supported service option currently not available in this define.
+# 
+# @param debug_level
+#   Debugging level.
+#   Level is a one of the syslog level names or numbers emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), 
+#   or debug (7). All logs for the specified level and all levels numerically less than it will be shown. The default is notice (5).
+#   While the debug = debug or debug = 7 level generates the most verbose output, it is only intended to be used by stunnel developers. 
+#   Please only use this value if you are a developer, or you intend to send your logs to our technical support. Otherwise, the generated 
+#   logs will be confusing.
+# 
+# @param log_file
+#   Append log messages to a file.
+#   /dev/stdout device can be used to send log messages to the standard output (for example to log them with daemontools splogger).
+# 
+# @example Basic usage
+#   include stunnel
 #
-# [*cafile*]
-#   cafile to use for this tunnel
+#   stunnel::connection {'my_tunnel':
+#     active        => true,
+#     enable        => true,
+#     client        => true,
+#     accept        => 32000,
+#     protocol      => connect,
+#     protocol_host => 'remote_url:564',
+#     connect       => 'my_proxy:8080',
+#     debug_level   => '5',
+#     log_file      => "${stunnel::log_dir}/my_tunnel.log",
+#   }
 #
-# [*cert*]
-#   Certificate to use for this tunnel
+# @author 
+#   Aaron Russo
+#   John Cooper
+#   Stephen Hoekstra
+#   Max Spicer
+#   Philippe Ganz
 #
-# [*keyfile*]
-#   Key to use for this tunnel
+# @see https://www.stunnel.org/static/stunnel.html
 #
-# [*client*]
-#   Whether this tunnel should be setup in client mode.
+# @api public
 #
-# [*options*]
-#   Options to pass to openssl.  To disable SSLv2 on your tunnel, you could
-#   pass "NO_SSLv2" as an option. This parameter should be passed an array, but
-#   for backwards compatability a single option can be passed as a string.
-#
-# [*template*]
-#   The ERB template to use when generating the configuration
-#
-# [*timeoutidle*]
-#   The idle timeout for the connection. Defaults to 43200.
-#
-# [*debug*]
-#   Set the debug level for stunnel.  Valid values are any valid syslog
-#   [facility.]level
-#
-# [*failover*]
-#   Configure the failover strategy for the service when using multiple backend
-#   servers. Valid values are 'rr' and 'prio', 'rr' being round robin and 'prio'
-#   being priority/failover (stunnel attempts to connect to backend servers in
-#   specified order).
-#
-# [*output*]
-#   location of logfile for this tunnel. if left unspecified, defaults to
-#   /var/log/stunnel/${name}.log, where ${name} is the name of the tunnel
-#   resource.
-#
-# [*global_opts*]
-#   hash of key/value pairs for additional stunnel global configuration options
-#   that are not already exposed as parameters.
-#
-# [*service_opts*]
-#   hash of key/value pairs for additional stunnel service configuration options
-#   that are not already exposed as parameters.
-#
-# [*ensure*]
-#   whether to set up or remove this tunnel. Valid values are 'absent' and
-#   'present'. Defaults to 'present'.
-#
-# [*install_service*]
-#   Whether or not to install an init script for this tunnel (boolean).
-#   Defaults to true
-#
-# [*service_init_system*]
-#   Which init system will be managing this service. Valid values are 'sysv'
-#   and 'systemd'.
-#   Defaults to 'sysv'
-#
-define stunnel::tun (
-  $accept,
-  $connect,
-  $cafile = '',
-  $cert = 'UNSET',
-  $client = false,
-  $keyfile = '',
-  $options = [ ],
-  $failover = 'rr',
-  $template = 'stunnel/tun.erb',
-  $timeoutidle = '43200',
-  $debug = '5',
-  $install_service = true,
-  $service_ensure = 'running',
-  $service_init_system = 'UNSET',
-  $output = 'UNSET',
-  $global_opts = { },
-  $service_opts = { },
-  $ensure = 'present',
+# @since 0.0.0
+# 
+define stunnel::connection (
+  String                         $stunnel_name    = $name,
+  Enum['present','absent']       $ensure          = 'present',
+  Boolean                        $manage_service  = true,
+  Optional[Boolean]              $active          = undef,
+  Optional[Variant[
+      Boolean,
+      Enum['mask']
+  ]]                             $enable          = undef,
+  Optional[Boolean]              $client          = undef,
+  Optional[String]               $accept          = undef,
+  Optional[String]               $protocol        = undef,
+  Optional[String]               $protocol_host   = undef,
+  Optional[Variant[
+      String,
+      Array[String]
+  ]]                             $connect         = undef,
+  Optional[Enum['rr','prio']]    $failover        = undef,
+  Optional[String]               $ca_file         = undef,
+  Optional[Stdlib::Absolutepath] $ca_path         = undef,
+  Optional[String]               $cert_file       = undef,
+  Optional[String]               $key_file        = undef,
+  Optional[Integer[0]]           $timeoutidle     = undef,
+  Optional[Array[String]]        $openssl_options = undef,
+  Optional[Hash[String, String]] $global_options  = undef,
+  Optional[Hash[String, String]] $service_options = undef,
+  Optional[Integer[0,7]]         $debug_level     = undef,
+  Optional[Stdlib::Absolutepath] $log_file        = undef,
 ) {
   require stunnel
-  include stunnel::data
 
-  validate_hash( $global_opts )
-  validate_hash( $service_opts )
-  validate_re( $failover, '^(rr|prio)$', '$failover must be either \'rr\' or \'prio\'')
-  validate_re( $ensure, '^(absent|present)$', '$ensure must be either \'absent\' or \'present\'')
-
-  $cafile_real = $cafile ? {
-    'UNSET' => '',
-    default => $cafile,
-  }
-
-  # Clients don't require a certificate but servers do
-  if $client {
-    $cert_default = ''
-  } else {
-    $cert_default = "${stunnel::data::cert_dir}/${name}.pem"
-  }
-  if $cert == 'UNSET' {
-    $cert_real = $cert_default
-  } else {
-    $cert_real = $cert
-  }
-
-  if $cafile_real != '' {
-    validate_absolute_path( $cafile_real )
-  }
-  if $cert_real != '' {
-    validate_absolute_path( $cert_real )
-  }
-  validate_bool( str2bool($client) )
-
-  if is_string($options) {
-    $options_r = [ $options ]
-  } elsif is_array($options) {
-    $options_r = $options
-  } else {
-    fail('$options must be an array, or a string containing a single option')
-  }
-
-  $service_init_system_real = $service_init_system ? {
-    'UNSET' => $::stunnel::data::service_init_system,
-    default => $service_init_system,
-  }
-  validate_re( $service_init_system_real, '^(sysv|systemd)$',
-    '$service_init_system must be either \'sysv\' or \'systemd\'')
-
-  $pid = "${stunnel::data::pid_dir}/stunnel-${name}.pid"
-  $output_r = $output ? {
-    'UNSET' => "${::stunnel::data::log_dir}/${name}.log",
-    default => $output,
-  }
-  validate_absolute_path($output_r)
-
-  $prog = $stunnel::data::bin_name
-  $svc_bin = "${stunnel::data::bin_path}/${stunnel::data::bin_name}"
-
-  $config_file = "${stunnel::data::conf_d_dir}/${name}.conf"
+  $config_file = "${stunnel::config_dir}/${stunnel_name}.conf"
   file { $config_file:
     ensure  => $ensure,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    content => template($template),
+    owner   => $stunnel::user,
+    group   => $stunnel::group,
+    mode    => '0664',
+    content => epp('stunnel/conf.epp', {
+        stunnel_name    => $stunnel_name,
+        client          => $client,
+        accept          => $accept,
+        protocol        => $protocol,
+        protocol_host   => $protocol_host,
+        connect         => $connect,
+        ca_file         => $ca_file,
+        ca_path         => $ca_path,
+        cert_file       => $cert_file,
+        key_file        => $key_file,
+        failover        => $failover,
+        timeoutidle     => $timeoutidle,
+        openssl_options => $openssl_options,
+        global_options  => $global_options,
+        service_options => $service_options,
+        debug_level     => $debug_level,
+        log_file        => $log_file,
+    }),
   }
 
-  # setup our init script / service
-  if $install_service and $ensure == 'present' {
-    $initscript_ensure = 'present'
-  } else {
-    $initscript_ensure = 'absent'
-  }
-  if $service_init_system_real == 'sysv' {
-    $initscript_file = "/etc/init.d/stunnel-${name}"
-    file { $initscript_file:
-      ensure  => $initscript_ensure,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0550',
-      content => template('stunnel/stunnel.init.erb'),
+  if $manage_service {
+    case $facts['kernel'] {
+      'Linux' : {
+        systemd::manage_unit { "stunnel-${stunnel_name}.service":
+          ensure        => $ensure,
+          unit_entry    => {
+            'Description'   => "Stunnel ${stunnel_name}",
+            'Documentation' => 'man:stunnel(8)',
+            'After'         => 'syslog.target network.target',
+          },
+          service_entry => {
+            'Type'      => 'exec',
+            'ExecStart' => "${stunnel::bin_path}/${stunnel::bin_name} ${config_file}",
+          },
+          install_entry => {
+            'WantedBy' => 'multi-user.target',
+          },
+          active        => $active,
+          enable        => $enable,
+        }
+      }
+      'windows' : {
+        fail('Windows TODO !')
+      }
+      default : {
+        fail("Unsupported kernel ${facts['kernel']} !")
+      }
     }
-  } elsif $service_init_system_real == 'systemd' {
-    $initscript_file = "/etc/systemd/system/stunnel-${name}.service"
-    file { $initscript_file:
-      ensure  => $initscript_ensure,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('stunnel/stunnel.init.systemd.erb'),
-    }
-  }
-  if $install_service or $ensure == 'absent' {
-    if $ensure == 'absent' {
-      $service_ensure_real = 'stopped'
-      $service_enable = false
-      # When removing, the init file should be removed after the service is
-      # stopped
-      $service_require = undef
-      $service_before = File[$initscript_file]
-    } else {
-      $service_ensure_real = $service_ensure
-      $service_enable = true
-      # When installing, the init file should be created before the service is
-      # started
-      $service_require = File[$initscript_file]
-      $service_before = undef
-    }
-    service { "stunnel-${name}":
-      ensure    => $service_ensure_real,
-      enable    => $service_enable,
-      provider  => $::stunnel::data::service_init_system, 
-      require   => $service_require,
-      before    => $service_before,
-      subscribe => File[$config_file],
-    }
+    File[$config_file] ~> Service["stunnel-${stunnel_name}"]
   }
 }
