@@ -17,7 +17,6 @@ computer, without having to reconfigure either the client or the server.
 stunnel is a system service that is automatically re-established if the tunnel software
 crashes. This makes it more robust than a manually-created SSH tunnel.
 
-
 ## How To Generate A Certificate ##
 
 In order to create a tunnel using stunnel, you must first create a digital
@@ -35,7 +34,7 @@ certificate. This can be done using the shell `openssl` command
     cat key.pem cert.pem >> stunnel.pem
 
 For more information, see
-https://www.digitalocean.com/community/articles/how-to-set-up-an-ssl-tunnel-using-stunnel-on-ubuntu
+<https://www.digitalocean.com/community/articles/how-to-set-up-an-ssl-tunnel-using-stunnel-on-ubuntu>
 or go crazy Googling.
 
 ## How To Use Puppet To Install A Certificate File ##
@@ -471,10 +470,10 @@ if we use the `stunnel::cert` class.  Here's a full example:
 References
 ----------
 
-* https://www.stunnel.org/
-* http://en.wikipedia.org/wiki/Stunnel
-* http://en.wikipedia.org/wiki/Secure_Sockets_Layer
-* https://www.digitalocean.com/community/articles/how-to-set-up-an-ssl-tunnel-using-stunnel-on-ubuntu
+* <https://www.stunnel.org/>
+* <http://en.wikipedia.org/wiki/Stunnel>
+* <http://en.wikipedia.org/wiki/Secure_Sockets_Layer>
+* <https://www.digitalocean.com/community/articles/how-to-set-up-an-ssl-tunnel-using-stunnel-on-ubuntu>
 
 License
 -------
@@ -486,8 +485,7 @@ Copyright
 
 Copyright &copy; 2016 The Regents of the University of California
 
-
-Contributors:
+Contributors
 -------------
 
 * **Yann Vigara**
