@@ -1,65 +1,95 @@
-# This file managed by Puppet
-<% if @cert_real != '' -%>
-cert = <%= @cert_real %>
-<% end -%>
-<% if @cafile_real != '' -%>
-CAfile = <%= @cafile_real %>
-<% else -%>
-# CAfile = /path/to/cafile.crt
-<% end -%>
-<% if @keyfile != '' -%>
-key = <%= @keyfile %>
-<% end -%>
+<%- | Optional[String]               $stunnel_name,
+      Optional[Boolean]              $client,
+      Optional[String]               $accept,
+      Optional[String]               $protocol,
+      Optional[String]               $protocol_host,
+      Optional[Variant[
+          String,
+          Array[String]
+      ]]                             $connect,
+      Optional[Enum['rr','prio']]    $failover,
+      Optional[String]               $ca_file,
+      Optional[Stdlib::Absolutepath] $ca_path,
+      Optional[String]               $cert_file,
+      Optional[String]               $key_file,
+      Optional[Integer[0]]           $timeoutidle,
+      Optional[Array[String]]        $openssl_options,
+      Optional[Hash[String, String]] $global_options,
+      Optional[Hash[String, String]] $service_options,
+      Optional[Integer[0,7]]         $debug_level,
+      Optional[Stdlib::Absolutepath] $log_file,
+| -%>
+; Stunnel config file for <%= $stunnel_name %>
 
-setuid = root
-setgid = root
-pid = <%= @pid %>
+<%- if $debug_level { -%>
+debug = <%= $debug_level %>
+<%- } -%>
+<%- if $output { -%>
+output = <%= $output %>
+<%- } -%>
+<%- if $facts['kernel'] == 'Linux' and $stunnel_name { -%>
+service = <%= $stunnel_name %>
+<%- } -%>
 
-debug = <%= @debug %>
+<%- if $global_options { -%>
+  <-% $global_options.each |$key, $value| { -%>
+<%= $key %> = <%= $value %>
+  <-% } -%>
+<%- } -%>
 
-output = <%= @output_r %>
+[<%= $stunnel_name %>]
+<%- if $client { -%>
+  client = yes
+<%- } -%>
 
-<% @options_r.each do |option| -%>
-options = <%= option %>
-<% end -%>
+<%- if $accept { -%>
+  accept = <%= $accept %>
+<%- } -%>
+<%- if $protocol { -%>
+  protocol = <%= $protocol %>
+<%- } -%>
+<%- if $protocol_host { -%>
+  protocol_host = <%= $protocol_host %>
+<%- } -%>
+<%- if $connect { -%>
+  <%- if type($connect) =~ Type[String] { -%>
+  connect = <%= $connect %>
+  <%- } else {-%>
+    <%- $connect.each |$host| { -%>
+  connect = <%= $host %>
+    <%- } -%>
+  <%- } -%>
+<%- } -%>
 
-<% if @global_opts.is_a? Hash and @global_opts.keys.size > 0 -%>
-  <%- @global_opts.sort.map do |option_name,option_value| -%>
-; additional global options
-    <%- if option_value.kind_of?(Array) -%>
-      <%- for val in option_value do -%>
-<%= option_name %> = <%= val %>
-      <%- end -%>
-    <%- else -%>
-<%= option_name %> = <%= option_value %>
-    <%- end -%>
-  <%- end -%>
-<%- end -%>
+<%- if $ca_file { -%>
+  CAfile = <%= $ca_file %>
+<%- } -%>
+<%- if $ca_path { -%>
+  CApath = <%= $ca_path %>
+<%- } -%>
+<%- if $cert_file { -%>
+  cert = <%= $cert_file %>
+<%- } -%>
+<%- if $key_file { -%>
+  key = <%= $key_file %>
+<%- } -%>
 
-[<%= @name %>]
-<% if @accept -%>
-  accept=<%= @accept %>
-<% end -%>
-<% if @connect.is_a? Array -%>
-  <%- @connect.each do |c| -%>
-  connect=<%= c %>
-  <%- end -%>
-<% else -%>
-  connect=<%= @connect %>
-<% end -%>
-<% if @connect.is_a? Array -%>
-  failover=<%= @failover %>
-<% end -%>
-<% if @client -%>
-  client=yes
-<% else -%>
-  client=no
-<% end -%>
-  TIMEOUTidle = <%= @timeoutidle %> 
-<% if @service_opts.is_a? Hash and @service_opts.keys.size > 0 -%>
+<%- if $failover { -%>
+  failover = <%= $failover %>
+<%- } -%>
 
-  ; additional service options
-  <%- @service_opts.sort.map do |option_name,option_value| -%>
-  <%= option_name %> = <%= option_value %>
-  <%- end -%>
-<% end -%>
+<%- if $timeoutidle { -%>
+  timeoutidle = <%= $timeoutidle %>
+<%- } -%>
+
+<%- if $openssl_options { -%>
+  <%- $openssl_options.each |$value| { -%>
+  options = <%= $value %>
+  <%- } -%>
+<%- } -%>
+
+<%- if $service_options { -%>
+  <-% $service_options.each |$key, $value| { -%>
+  <%= $key %> = <%= $value %>
+  <-% } -%>
+<%- } -%>
