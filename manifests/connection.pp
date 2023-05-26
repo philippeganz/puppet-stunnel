@@ -161,8 +161,14 @@ define stunnel::connection (
   Optional[String]               $key_file        = undef,
   Optional[Integer[0]]           $timeoutidle     = undef,
   Optional[Array[String]]        $openssl_options = undef,
-  Optional[Hash[String, String]] $global_options  = undef,
-  Optional[Hash[String, String]] $service_options = undef,
+  Optional[Hash[
+      String,
+      Data
+  ]]                             $global_options  = undef,
+  Optional[Hash[
+      String,
+      Data
+  ]]                             $service_options = undef,
   Optional[Integer[0,7]]         $debug_level     = undef,
   Optional[Stdlib::Absolutepath] $log_file        = undef,
 ) {

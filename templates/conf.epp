@@ -17,8 +17,14 @@
       Optional[String]               $key_file,
       Optional[Integer[0]]           $timeoutidle,
       Optional[Array[String]]        $openssl_options,
-      Optional[Hash[String, String]] $global_options,
-      Optional[Hash[String, String]] $service_options,
+      Optional[Hash[
+          String,
+          Data
+      ]]                             $global_options,
+      Optional[Hash[
+          String,
+          Data
+      ]]                             $service_options,
       Optional[Integer[0,7]]         $debug_level,
       Optional[Stdlib::Absolutepath] $log_file,
 | -%>
