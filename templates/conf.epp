@@ -59,7 +59,7 @@ service = <%= $stunnel_name %>
   protocol = <%= $protocol %>
 <%- } -%>
 <%- if $protocol_host { -%>
-  protocol_host = <%= $protocol_host %>
+  protocolHost = <%= $protocol_host %>
 <%- } -%>
 <%- if $connect { -%>
   <%- if type($connect) =~ Type[String] { -%>
@@ -101,7 +101,7 @@ service = <%= $stunnel_name %>
 <%- } -%>
 
 <%- if $timeoutidle { -%>
-  timeoutidle = <%= $timeoutidle %>
+  TIMEOUTidle = <%= $timeoutidle %>
 <%- } -%>
 
 <%- if $service_options { -%>
