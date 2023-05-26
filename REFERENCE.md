@@ -179,10 +179,11 @@ The following parameters are available in the `stunnel::connection` defined type
 * [`key_file`](#-stunnel--connection--key_file)
 * [`timeoutidle`](#-stunnel--connection--timeoutidle)
 * [`openssl_options`](#-stunnel--connection--openssl_options)
-* [`global_options`](#-stunnel--connection--global_options)
+* [`socket_options`](#-stunnel--connection--socket_options)
 * [`service_options`](#-stunnel--connection--service_options)
 * [`debug_level`](#-stunnel--connection--debug_level)
 * [`log_file`](#-stunnel--connection--log_file)
+* [`global_options`](#-stunnel--connection--global_options)
 
 ##### <a name="-stunnel--connection--stunnel_name"></a>`stunnel_name`
 
@@ -241,7 +242,14 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--accept"></a>`accept`
 
-Data type: `Optional[String]`
+Data type:
+
+```puppet
+Optional[Variant[
+      String,
+      Integer[0]
+  ]]
+```
 
 Accept connections on specified address.
 If no host specified, defaults to all IPv4 addresses for the local host.
@@ -369,17 +377,25 @@ later.
 
 Default value: `undef`
 
-##### <a name="-stunnel--connection--global_options"></a>`global_options`
+##### <a name="-stunnel--connection--socket_options"></a>`socket_options`
 
-Data type: `Optional[Hash[String, String]]`
+Data type: `Optional[Array[String]]`
 
-Any supported global option currently not available in this define.
+Set an option on the accept/local/remote socket.
+The values for the linger option are l_onof:l_linger. The values for the time are tv_sec:tv_usec.
 
 Default value: `undef`
 
 ##### <a name="-stunnel--connection--service_options"></a>`service_options`
 
-Data type: `Optional[Hash[String, String]]`
+Data type:
+
+```puppet
+Optional[Hash[
+      String,
+      Data
+  ]]
+```
 
 Any supported service option currently not available in this define.
 
@@ -404,5 +420,20 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Append log messages to a file.
 /dev/stdout device can be used to send log messages to the standard output (for example to log them with daemontools splogger).
+
+Default value: `undef`
+
+##### <a name="-stunnel--connection--global_options"></a>`global_options`
+
+Data type:
+
+```puppet
+Optional[Hash[
+      String,
+      Data
+  ]]
+```
+
+Any supported global option currently not available in this define.
 
 Default value: `undef`

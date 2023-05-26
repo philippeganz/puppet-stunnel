@@ -15,18 +15,19 @@
       Optional[Stdlib::Absolutepath] $ca_path,
       Optional[String]               $cert_file,
       Optional[String]               $key_file,
-      Optional[Integer[0]]           $timeoutidle,
       Optional[Array[String]]        $openssl_options,
-      Optional[Hash[
-          String,
-          Data
-      ]]                             $global_options,
+      Optional[Array[String]]        $socket_options,
       Optional[Hash[
           String,
           Data
       ]]                             $service_options,
+      Optional[Integer[0]]           $timeoutidle,
       Optional[Integer[0,7]]         $debug_level,
       Optional[Stdlib::Absolutepath] $log_file,
+      Optional[Hash[
+          String,
+          Data
+      ]]                             $global_options,
 | -%>
 ; Stunnel config file for <%= $stunnel_name %>
 
@@ -87,14 +88,20 @@ service = <%= $stunnel_name %>
   failover = <%= $failover %>
 <%- } -%>
 
-<%- if $timeoutidle { -%>
-  timeoutidle = <%= $timeoutidle %>
-<%- } -%>
-
 <%- if $openssl_options { -%>
   <%- $openssl_options.each |$value| { -%>
   options = <%= $value %>
   <%- } -%>
+<%- } -%>
+
+<%- if $socket_options { -%>
+  <%- $socket_options.each |$value| { -%>
+  socket = <%= $value %>
+  <%- } -%>
+<%- } -%>
+
+<%- if $timeoutidle { -%>
+  timeoutidle = <%= $timeoutidle %>
 <%- } -%>
 
 <%- if $service_options { -%>

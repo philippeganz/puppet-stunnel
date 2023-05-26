@@ -87,9 +87,10 @@
 #   Several option lines can be used to specify multiple options. An option name can be prepended with a dash ("-") to disable the option.
 #   Use sslVersionMax or sslVersionMin option instead of disabling specific TLS protocol versions when compiled with OpenSSL 1.1.0 or 
 #   later.
-# 
-# @param global_options
-#   Any supported global option currently not available in this define.
+#
+# @param socket_options
+#   Set an option on the accept/local/remote socket.
+#   The values for the linger option are l_onof:l_linger. The values for the time are tv_sec:tv_usec.
 # 
 # @param service_options
 #   Any supported service option currently not available in this define.
@@ -106,6 +107,9 @@
 #   Append log messages to a file.
 #   /dev/stdout device can be used to send log messages to the standard output (for example to log them with daemontools splogger).
 # 
+# @param global_options
+#   Any supported global option currently not available in this define.
+#
 # @example Basic usage
 #   include stunnel
 #
@@ -159,18 +163,19 @@ define stunnel::connection (
   Optional[Stdlib::Absolutepath] $ca_path         = undef,
   Optional[String]               $cert_file       = undef,
   Optional[String]               $key_file        = undef,
-  Optional[Integer[0]]           $timeoutidle     = undef,
   Optional[Array[String]]        $openssl_options = undef,
-  Optional[Hash[
-      String,
-      Data
-  ]]                             $global_options  = undef,
+  Optional[Array[String]]        $socket_options  = undef,
   Optional[Hash[
       String,
       Data
   ]]                             $service_options = undef,
+  Optional[Integer[0]]           $timeoutidle     = undef,
   Optional[Integer[0,7]]         $debug_level     = undef,
   Optional[Stdlib::Absolutepath] $log_file        = undef,
+  Optional[Hash[
+      String,
+      Data
+  ]]                             $global_options  = undef,
 ) {
   require stunnel
 
@@ -192,12 +197,13 @@ define stunnel::connection (
         cert_file       => $cert_file,
         key_file        => $key_file,
         failover        => $failover,
-        timeoutidle     => $timeoutidle,
         openssl_options => $openssl_options,
-        global_options  => $global_options,
+        socket_options  => $socket_options,
+        timeoutidle     => $timeoutidle,
         service_options => $service_options,
         debug_level     => $debug_level,
         log_file        => $log_file,
+        global_options  => $global_options,
     }),
   }
 
