@@ -215,7 +215,7 @@ define stunnel::connection (
           unit_entry    => {
             'Description'   => "Stunnel ${stunnel_name}",
             'Documentation' => 'man:stunnel(8)',
-            'After'         => 'syslog.target network.target',
+            'After'         => ['syslog.target', 'network.target'],
           },
           service_entry => {
             'Type'      => 'exec',
