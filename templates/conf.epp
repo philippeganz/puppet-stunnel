@@ -105,7 +105,7 @@ service = <%= $stunnel_name %>
 <%- } -%>
 
 <%- if $service_options { -%>
-  <-% $service_options.each |$key, $value| { -%>
+  <%- $service_options.each |$key, $value| { -%>
   <%= $key %> = <%= $value %>
-  <-% } -%>
+  <%- } -%>
 <%- } -%>
