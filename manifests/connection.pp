@@ -144,7 +144,10 @@ define stunnel::connection (
       Enum['mask']
   ]]                             $enable          = undef,
   Optional[Boolean]              $client          = undef,
-  Optional[String]               $accept          = undef,
+  Optional[Variant[
+      String,
+      Integer[0]
+  ]]                             $accept          = undef,
   Optional[String]               $protocol        = undef,
   Optional[String]               $protocol_host   = undef,
   Optional[Variant[

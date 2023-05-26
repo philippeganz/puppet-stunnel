@@ -1,6 +1,9 @@
 <%- | Optional[String]               $stunnel_name,
       Optional[Boolean]              $client,
-      Optional[String]               $accept,
+      Optional[Variant[
+          String,
+          Integer[0]
+      ]]                             $accept,
       Optional[String]               $protocol,
       Optional[String]               $protocol_host,
       Optional[Variant[
