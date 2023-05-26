@@ -210,7 +210,8 @@ define stunnel::connection (
   if $manage_service {
     case $facts['kernel'] {
       'Linux' : {
-        systemd::manage_unit { "stunnel-${stunnel_name}.service":
+        $service_name = "stunnel-${stunnel_name}.service"
+        systemd::manage_unit { $service_name:
           ensure        => $ensure,
           unit_entry    => {
             'Description'   => "Stunnel ${stunnel_name}",
@@ -235,6 +236,6 @@ define stunnel::connection (
         fail("Unsupported kernel ${facts['kernel']} !")
       }
     }
-    File[$config_file] ~> Service["stunnel-${stunnel_name}"]
+    File[$config_file] ~> Service[$service_name]
   }
 }
