@@ -153,7 +153,7 @@ stunnel::connection {'my_tunnel':
   protocol      => connect,
   protocol_host => 'remote_url:564',
   connect       => 'my_proxy:8080',
-  debug_level   => '5',
+  debug_level   => 5,
   log_file      => "${stunnel::log_dir}/my_tunnel.log",
 }
 ```
@@ -173,10 +173,13 @@ The following parameters are available in the `stunnel::connection` defined type
 * [`protocol_host`](#-stunnel--connection--protocol_host)
 * [`connect`](#-stunnel--connection--connect)
 * [`failover`](#-stunnel--connection--failover)
-* [`ca_file`](#-stunnel--connection--ca_file)
-* [`ca_path`](#-stunnel--connection--ca_path)
-* [`cert_file`](#-stunnel--connection--cert_file)
-* [`key_file`](#-stunnel--connection--key_file)
+* [`ca_file_path`](#-stunnel--connection--ca_file_path)
+* [`ca_file_content`](#-stunnel--connection--ca_file_content)
+* [`ca_dir_path`](#-stunnel--connection--ca_dir_path)
+* [`cert_file_path`](#-stunnel--connection--cert_file_path)
+* [`cert_file_content`](#-stunnel--connection--cert_file_content)
+* [`key_file_path`](#-stunnel--connection--key_file_path)
+* [`key_file_content`](#-stunnel--connection--key_file_content)
 * [`timeoutidle`](#-stunnel--connection--timeoutidle)
 * [`openssl_options`](#-stunnel--connection--openssl_options)
 * [`socket_options`](#-stunnel--connection--socket_options)
@@ -308,16 +311,25 @@ default: prio
 
 Default value: `undef`
 
-##### <a name="-stunnel--connection--ca_file"></a>`ca_file`
+##### <a name="-stunnel--connection--ca_file_path"></a>`ca_file_path`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
 Load trusted CA certificates from a file.
 The loaded CA certificates will be used with the verifyChain and verifyPeer options.
 
 Default value: `undef`
 
-##### <a name="-stunnel--connection--ca_path"></a>`ca_path`
+##### <a name="-stunnel--connection--ca_file_content"></a>`ca_file_content`
+
+Data type: `Optional[String]`
+
+If specified, will populate the CA file @ca_file_path. If this path is not specified, it will populate a default CA file
+in cert_dir/stunnel_name_CA.pem
+
+Default value: `undef`
+
+##### <a name="-stunnel--connection--ca_dir_path"></a>`ca_dir_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -330,9 +342,9 @@ CApath path is relative to the chroot directory if specified.
 
 Default value: `undef`
 
-##### <a name="-stunnel--connection--cert_file"></a>`cert_file`
+##### <a name="-stunnel--connection--cert_file_path"></a>`cert_file_path`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
 Certificate chain file name.
 The parameter specifies the file containing certificates used by stunnel to authenticate itself against the remote client or server.
@@ -343,9 +355,18 @@ This parameter is also used as the certificate identifier when a hardware engine
 
 Default value: `undef`
 
-##### <a name="-stunnel--connection--key_file"></a>`key_file`
+##### <a name="-stunnel--connection--cert_file_content"></a>`cert_file_content`
 
 Data type: `Optional[String]`
+
+If specified, will populate the cert file @cert_file_path. If this path is not specified, it will populate a default cert file
+in cert_dir/stunnel_name_cert.pem
+
+Default value: `undef`
+
+##### <a name="-stunnel--connection--key_file_path"></a>`key_file_path`
+
+Data type: `Optional[Stdlib::Absolutepath]`
 
 Private key for the certificate specified with cert option.
 A private key is needed to authenticate the certificate owner. Since this file should be kept secret it should only be readable by
@@ -353,6 +374,15 @@ its owner. On Unix systems you can use the following command:
 chmod 600 keyfile
 This parameter is also used as the private key identifier when a hardware engine is enabled.
 default: the value of the cert option
+
+Default value: `undef`
+
+##### <a name="-stunnel--connection--key_file_content"></a>`key_file_content`
+
+Data type: `Optional[String]`
+
+If specified, will populate the key file @key_file_path. If this path is not specified, it will populate a default key file
+in cert_dir/stunnel_name.key
 
 Default value: `undef`
 

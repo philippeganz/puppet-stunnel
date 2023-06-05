@@ -49,11 +49,15 @@
 #   prio  priority - use the order specified in config file
 #   default: prio
 # 
-# @param ca_file
+# @param ca_file_path
 #   Load trusted CA certificates from a file.
 #   The loaded CA certificates will be used with the verifyChain and verifyPeer options.
 # 
-# @param ca_path
+# @param ca_file_content
+#   If specified, will populate the CA file @ca_file_path. If this path is not specified, it will populate a default CA file
+#   in cert_dir/stunnel_name_CA.pem
+#   
+# @param ca_dir_path
 #   Load trusted CA certificates from a directory.
 #   The loaded CA certificates will be used with the verifyChain and verifyPeer options. Note that the certificates in this directory 
 #   should be named XXXXXXXX.0 where XXXXXXXX is the hash value of the DER encoded subject of the cert.
@@ -61,7 +65,7 @@
 #   OpenSSL 1.x.x or later.
 #   CApath path is relative to the chroot directory if specified.
 # 
-# @param cert_file
+# @param cert_file_path
 #   Certificate chain file name.
 #   The parameter specifies the file containing certificates used by stunnel to authenticate itself against the remote client or server. 
 #   The file should contain the whole certificate chain starting from the actual server/client certificate, and ending with the 
@@ -69,13 +73,21 @@
 #   A certificate chain is required in server mode, and optional in client mode.
 #   This parameter is also used as the certificate identifier when a hardware engine is enabled.
 # 
-# @param key_file
+# @param cert_file_content
+#   If specified, will populate the cert file @cert_file_path. If this path is not specified, it will populate a default cert file
+#   in cert_dir/stunnel_name_cert.pem
+#
+# @param key_file_path
 #   Private key for the certificate specified with cert option.
 #   A private key is needed to authenticate the certificate owner. Since this file should be kept secret it should only be readable by 
 #   its owner. On Unix systems you can use the following command:
 #   chmod 600 keyfile
 #   This parameter is also used as the private key identifier when a hardware engine is enabled.
 #   default: the value of the cert option
+# 
+# @param key_file_content
+#   If specified, will populate the key file @key_file_path. If this path is not specified, it will populate a default key file
+#   in cert_dir/stunnel_name.key
 # 
 # @param timeoutidle
 #   Time to keep an idle connection.
@@ -121,7 +133,7 @@
 #     protocol      => connect,
 #     protocol_host => 'remote_url:564',
 #     connect       => 'my_proxy:8080',
-#     debug_level   => '5',
+#     debug_level   => 5,
 #     log_file      => "${stunnel::log_dir}/my_tunnel.log",
 #   }
 #
@@ -139,51 +151,94 @@
 # @since 0.0.0
 # 
 define stunnel::connection (
-  String                         $stunnel_name    = $name,
-  Enum['present','absent']       $ensure          = 'present',
-  Boolean                        $manage_service  = true,
-  Optional[Boolean]              $active          = undef,
+  String                         $stunnel_name      = $name,
+  Enum['present','absent']       $ensure            = 'present',
+  Boolean                        $manage_service    = true,
+  Optional[Boolean]              $active            = undef,
   Optional[Variant[
       Boolean,
       Enum['mask']
-  ]]                             $enable          = undef,
-  Optional[Boolean]              $client          = undef,
+  ]]                             $enable            = undef,
+  Optional[Boolean]              $client            = undef,
   Optional[Variant[
       String,
       Integer[0]
-  ]]                             $accept          = undef,
-  Optional[String]               $protocol        = undef,
-  Optional[String]               $protocol_host   = undef,
+  ]]                             $accept            = undef,
+  Optional[String]               $protocol          = undef,
+  Optional[String]               $protocol_host     = undef,
   Optional[Variant[
       String,
       Array[String]
-  ]]                             $connect         = undef,
-  Optional[Enum['rr','prio']]    $failover        = undef,
-  Optional[String]               $ca_file         = undef,
-  Optional[Stdlib::Absolutepath] $ca_path         = undef,
-  Optional[String]               $cert_file       = undef,
-  Optional[String]               $key_file        = undef,
-  Optional[Array[String]]        $openssl_options = undef,
-  Optional[Array[String]]        $socket_options  = undef,
+  ]]                             $connect           = undef,
+  Optional[Enum['rr','prio']]    $failover          = undef,
+  Optional[String]               $ca_file_content   = undef,
+  Optional[Stdlib::Absolutepath] $ca_file_path      = undef,
+  Optional[Stdlib::Absolutepath] $ca_dir_path       = undef,
+  Optional[String]               $cert_file_content = undef,
+  Optional[Stdlib::Absolutepath] $cert_file_path    = undef,
+  Optional[String]               $key_file_content  = undef,
+  Optional[Stdlib::Absolutepath] $key_file_path     = undef,
+  Optional[Array[String]]        $openssl_options   = undef,
+  Optional[Array[String]]        $socket_options    = undef,
   Optional[Hash[
       String,
       Data
-  ]]                             $service_options = undef,
-  Optional[Integer[0]]           $timeoutidle     = undef,
-  Optional[Integer[0,7]]         $debug_level     = undef,
-  Optional[Stdlib::Absolutepath] $log_file        = undef,
+  ]]                             $service_options   = undef,
+  Optional[Integer[0]]           $timeoutidle       = undef,
+  Optional[Integer[0,7]]         $debug_level       = undef,
+  Optional[Stdlib::Absolutepath] $log_file          = undef,
   Optional[Hash[
       String,
       Data
-  ]]                             $global_options  = undef,
+  ]]                             $global_options    = undef,
 ) {
   require stunnel
+
+  File {
+    owner   => $stunnel::user,
+    group   => $stunnel::group,
+  }
+
+  if $ca_file_content {
+    if $ca_file_path != undef {
+      $ca_file = $ca_file_path
+    } else {
+      $ca_file = "${stunnel::cert_dir}/${stunnel_name}_CA.pem"
+    }
+    file { $ca_file:
+      ensure  => $ensure,
+      content => $ca_file_content,
+      mode    => '0640',
+    }
+  }
+  if $cert_file_content {
+    if $cert_file_path != undef {
+      $cert_file = $cert_file_path
+    } else {
+      $cert_file = "${stunnel::cert_dir}/${stunnel_name}_cert.pem"
+    }
+    file { $cert_file:
+      ensure  => $ensure,
+      content => $cert_file_content,
+      mode    => '0640',
+    }
+  }
+  if $key_file_content {
+    if $key_file_path != undef {
+      $key_file = $key_file_path
+    } else {
+      $key_file = "${stunnel::cert_dir}/${stunnel_name}.key"
+    }
+    file { $key_file:
+      ensure  => $ensure,
+      content => $key_file_content,
+      mode    => '0600',
+    }
+  }
 
   $config_file = "${stunnel::config_dir}/${stunnel_name}.conf"
   file { $config_file:
     ensure  => $ensure,
-    owner   => $stunnel::user,
-    group   => $stunnel::group,
     mode    => '0664',
     content => epp('stunnel/conf.epp', {
         stunnel_name    => $stunnel_name,
@@ -193,7 +248,7 @@ define stunnel::connection (
         protocol_host   => $protocol_host,
         connect         => $connect,
         ca_file         => $ca_file,
-        ca_path         => $ca_path,
+        ca_dir          => $ca_dir_path,
         cert_file       => $cert_file,
         key_file        => $key_file,
         failover        => $failover,
@@ -232,6 +287,15 @@ define stunnel::connection (
 
         if $enable != undef or $active != undef {
           File[$config_file] ~> Service[$service_name]
+          if $ca_file_path {
+            File[$ca_file_path] ~> Service[$service_name]
+          }
+          if $cert_file_path {
+            File[$cert_file_path] ~> Service[$service_name]
+          }
+          if $key_file_path {
+            File[$key_file_path] ~> Service[$service_name]
+          }
         }
       }
       'windows' : {

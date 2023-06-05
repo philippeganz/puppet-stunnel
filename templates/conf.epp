@@ -11,10 +11,10 @@
           Array[String]
       ]]                             $connect,
       Optional[Enum['rr','prio']]    $failover,
-      Optional[String]               $ca_file,
-      Optional[Stdlib::Absolutepath] $ca_path,
-      Optional[String]               $cert_file,
-      Optional[String]               $key_file,
+      Optional[Stdlib::Absolutepath] $ca_file,
+      Optional[Stdlib::Absolutepath] $ca_dir,
+      Optional[Stdlib::Absolutepath] $cert_file,
+      Optional[Stdlib::Absolutepath] $key_file,
       Optional[Array[String]]        $openssl_options,
       Optional[Array[String]]        $socket_options,
       Optional[Hash[
@@ -74,8 +74,8 @@ service = <%= $stunnel_name %>
 <%- if $ca_file { -%>
   CAfile = <%= $ca_file %>
 <%- } -%>
-<%- if $ca_path { -%>
-  CApath = <%= $ca_path %>
+<%- if $ca_dir { -%>
+  CApath = <%= $ca_dir %>
 <%- } -%>
 <%- if $cert_file { -%>
   cert = <%= $cert_file %>
