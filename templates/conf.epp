@@ -39,6 +39,7 @@ output = <%= $log_file %>
 <%- } -%>
 <%- if $facts['kernel'] == 'Linux' and $stunnel_name { -%>
 service = <%= $stunnel_name %>
+foreground = yes
 <%- } -%>
 
 <%- if $global_options { -%>
