@@ -159,7 +159,7 @@ define stunnel::connection (
       Boolean,
       Enum['mask']
   ]]                             $enable            = undef,
-  Optional[Boolean]              $client            = undef,
+  Optional[Enum['yes','no']]     $client            = undef,
   Optional[Variant[
       String,
       Integer[0]

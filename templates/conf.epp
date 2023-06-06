@@ -1,5 +1,5 @@
 <%- | Optional[String]               $stunnel_name,
-      Optional[Boolean]              $client,
+      Optional[Enum['yes','no']]     $client,
       Optional[Variant[
           String,
           Integer[0]
@@ -50,7 +50,7 @@ foreground = yes
 
 [<%= $stunnel_name %>]
 <%- if $client { -%>
-  client = yes
+  client = <%= $client %>
 <%- } -%>
 
 <%- if $accept { -%>
