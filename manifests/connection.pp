@@ -199,38 +199,70 @@ define stunnel::connection (
     group   => $stunnel::group,
   }
 
-  if $ca_file_content {
-    if $ca_file_path != undef {
-      $ca_file = $ca_file_path
-    } else {
-      $ca_file = "${stunnel::cert_dir}/${stunnel_name}_CA.pem"
+  if $ca_file_path {
+    $ca_file = $ca_file_path
+    if $ca_file_content {
+      $ca_file_ensure = file
     }
+  } else {
+    if $ca_file_content {
+      $ca_file = "${stunnel::cert_dir}/${stunnel_name}_CA.pem"
+      $ca_file_ensure = file
+    } else {
+      file { "${stunnel::cert_dir}/${stunnel_name}_CA.pem":
+        ensure  => absent,
+      }
+    }
+  }
+  if $ca_file_ensure {
     file { $ca_file:
-      ensure  => $ensure,
+      ensure  => $ca_file_ensure,
       content => $ca_file_content,
       mode    => '0640',
     }
   }
-  if $cert_file_content {
-    if $cert_file_path != undef {
-      $cert_file = $cert_file_path
-    } else {
-      $cert_file = "${stunnel::cert_dir}/${stunnel_name}_cert.pem"
+
+  if $cert_file_path {
+    $cert_file = $cert_file_path
+    if $cert_file_content {
+      $cert_file_ensure = file
     }
+  } else {
+    if $cert_file_content {
+      $cert_file = "${stunnel::cert_dir}/${stunnel_name}_cert.pem"
+      $cert_file_ensure = file
+    } else {
+      file { "${stunnel::cert_dir}/${stunnel_name}_cert.pem":
+        ensure  => absent,
+      }
+    }
+  }
+  if $cert_file_ensure {
     file { $cert_file:
-      ensure  => $ensure,
+      ensure  => $cert_file_ensure,
       content => $cert_file_content,
       mode    => '0640',
     }
   }
-  if $key_file_content {
-    if $key_file_path != undef {
-      $key_file = $key_file_path
-    } else {
-      $key_file = "${stunnel::cert_dir}/${stunnel_name}.key"
+
+  if $key_file_path {
+    $key_file = $key_file_path
+    if $key_file_content {
+      $key_file_ensure = file
     }
+  } else {
+    if $key_file_content {
+      $key_file = "${stunnel::cert_dir}/${stunnel_name}.key"
+      $key_file_ensure = file
+    } else {
+      file { "${stunnel::cert_dir}/${stunnel_name}.key":
+        ensure  => absent,
+      }
+    }
+  }
+  if $key_file_ensure {
     file { $key_file:
-      ensure  => $ensure,
+      ensure  => $key_file_ensure,
       content => $key_file_content,
       mode    => '0600',
     }
