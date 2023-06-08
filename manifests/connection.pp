@@ -316,22 +316,10 @@ define stunnel::connection (
           active        => $active,
           enable        => $enable,
         }
-
-        if $enable != undef or $active != undef {
-          File[$config_file] ~> Service[$service_name]
-          if $ca_file_path {
-            File[$ca_file_path] ~> Service[$service_name]
-          }
-          if $cert_file_path {
-            File[$cert_file_path] ~> Service[$service_name]
-          }
-          if $key_file_path {
-            File[$key_file_path] ~> Service[$service_name]
-          }
-        }
       }
       'windows' : {
-        service { "stunnel-${stunnel_name}":
+        $service_name = "stunnel-${stunnel_name}"
+        service { $service_name:
           ensure => $active,
           enable => $enable,
           binary => "${stunnel::bin_path}\\${stunnel::bin_name} -install -service ${config_file}",
@@ -339,6 +327,18 @@ define stunnel::connection (
       }
       default : {
         fail("Unsupported kernel ${facts['kernel']} !")
+      }
+    }
+    if $enable != undef or $active != undef {
+      File[$config_file] ~> Service[$service_name]
+      if $ca_file_path {
+        File[$ca_file_path] ~> Service[$service_name]
+      }
+      if $cert_file_path {
+        File[$cert_file_path] ~> Service[$service_name]
+      }
+      if $key_file_path {
+        File[$key_file_path] ~> Service[$service_name]
       }
     }
   }
