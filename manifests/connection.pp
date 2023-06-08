@@ -331,7 +331,11 @@ define stunnel::connection (
         }
       }
       'windows' : {
-        fail('Windows TODO !')
+        service { "stunnel-${stunnel_name}":
+          ensure => $active,
+          enable => $enable,
+          binary => "${stunnel::bin_path}\\${stunnel::bin_name} -install -service ${config_file}",
+        }
       }
       default : {
         fail("Unsupported kernel ${facts['kernel']} !")
