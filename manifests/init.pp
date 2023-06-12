@@ -21,6 +21,12 @@
 # @param packages
 #   List of packages to install.
 # 
+# @param packages_ensure
+#   If packages should be updated or not.
+# 
+# @param packages_provider
+#   Provider to use to install the packages. Mandatory on Windows.
+# 
 # @param pid_dir
 #   Path to the directory containing the pid file. 
 #   Linux only.
@@ -54,12 +60,20 @@ class stunnel (
   Optional[Stdlib::Absolutepath] $config_dir          = undef,
   Optional[Stdlib::Absolutepath] $log_dir             = undef,
   Optional[Array]                $packages            = undef,
+  Optional[Enum[
+      'present',
+      'latest'
+  ]]                             $packages_ensure     = undef,
+  Optional[String]               $packages_provider   = undef,
   Optional[Stdlib::Absolutepath] $pid_dir             = undef,
   Optional[String]               $service_init_system = undef,
   Optional[String]               $user                = undef,
   Optional[String]               $group               = undef,
 ) {
-  ensure_packages( $packages )
+  package { $packages:
+    ensure   => $packages_ensure,
+    provider => $packages_provider,
+  }
 
   $stunnel_dirs = [
     $cert_dir,

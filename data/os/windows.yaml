@@ -6,4 +6,5 @@ stunnel::config_dir: "C:\\Program Files (x86)\\stunnel\\config"
 stunnel::log_dir: "C:\\Program Files (x86)\\stunnel\\log"
 stunnel::packages:
   - stunnel
+stunnel::packages_provider: chocolatey
 stunnel::user: Administrators

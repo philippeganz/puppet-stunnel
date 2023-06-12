@@ -1,1 +1,2 @@
 ---
+stunnel::packages_ensure: latest
