@@ -332,7 +332,7 @@ define stunnel::connection (
         $service_name = "stunnel-${stunnel_name}"
         if $ensure == 'present' {
           exec { "Create service ${service_name}" :
-            command   => "New-Service -Name \"${service_name}\" -BinaryPathName '\"${stunnel::bin_path}\\${stunnel::bin_name} -install -service ${config_file}\"'",
+            command   => "New-Service -Name \"${service_name}\" -BinaryPathName '\"${stunnel::bin_path}\\${stunnel::bin_name}\" -install -service \"${config_file}\"'",
             provider  => pwsh,
             logoutput => true,
             unless    => "if ($(Get-Service ${service_name}).name -eq \"${service_name}\") {exit 0} else {exit 1}",
