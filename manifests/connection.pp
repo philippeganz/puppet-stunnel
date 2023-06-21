@@ -199,6 +199,18 @@ define stunnel::connection (
     group   => $stunnel::group,
   }
 
+  case $facts['kernel'] {
+    'Linux' : {
+      $path_connector = '/'
+    }
+    'windows' : {
+      $path_connector = "\\"
+    }
+    default : {
+      fail("Unsupported kernel ${facts['kernel']} !")
+    }
+  }
+
   if $ca_file_path {
     $ca_file = $ca_file_path
     if $ca_file_content {
@@ -206,10 +218,10 @@ define stunnel::connection (
     }
   } else {
     if $ca_file_content {
-      $ca_file = "${stunnel::cert_dir}/${stunnel_name}_CA.pem"
+      $ca_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem"
       $ca_file_ensure = file
     } else {
-      file { "${stunnel::cert_dir}/${stunnel_name}_CA.pem":
+      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem":
         ensure  => absent,
       }
     }
@@ -229,10 +241,10 @@ define stunnel::connection (
     }
   } else {
     if $cert_file_content {
-      $cert_file = "${stunnel::cert_dir}/${stunnel_name}_cert.pem"
+      $cert_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem"
       $cert_file_ensure = file
     } else {
-      file { "${stunnel::cert_dir}/${stunnel_name}_cert.pem":
+      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem":
         ensure  => absent,
       }
     }
@@ -252,10 +264,10 @@ define stunnel::connection (
     }
   } else {
     if $key_file_content {
-      $key_file = "${stunnel::cert_dir}/${stunnel_name}.key"
+      $key_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}.key"
       $key_file_ensure = file
     } else {
-      file { "${stunnel::cert_dir}/${stunnel_name}.key":
+      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}.key":
         ensure  => absent,
       }
     }
@@ -268,17 +280,7 @@ define stunnel::connection (
     }
   }
 
-  case $facts['kernel'] {
-    'Linux' : {
-      $config_file = "${stunnel::config_dir}/${stunnel_name}.conf"
-    }
-    'windows' : {
-      $config_file = "${stunnel::config_dir}\\${stunnel_name}.conf"
-    }
-    default : {
-      fail("Unsupported kernel ${facts['kernel']} !")
-    }
-  }
+  $config_file = "${stunnel::config_dir}${path_connector}${stunnel_name}.conf"
 
   file { $config_file:
     ensure  => $ensure,
