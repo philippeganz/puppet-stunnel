@@ -319,10 +319,25 @@ define stunnel::connection (
       }
       'windows' : {
         $service_name = "stunnel-${stunnel_name}"
-        service { $service_name:
-          ensure => $active,
-          enable => $enable,
-          binary => "${stunnel::bin_path}\\${stunnel::bin_name} -install -service ${config_file}",
+        if $ensure == 'present' {
+          exec { "Create service ${service_name}" :
+            command   => "New-Service -Name \"${service_name}\" -BinaryPathName '\"${stunnel::bin_path}\\${stunnel::bin_name} -install -service ${config_file}\"'",
+            provider  => pwsh,
+            logoutput => true,
+            unless    => "if ($(Get-Service ${service_name}).name -eq \"${service_name}\") {exit 0} else {exit 1}",
+            before    => Service[$service_name],
+          }
+          service { $service_name:
+            ensure => $active,
+            enable => $enable,
+          }
+        } else {
+          exec { "Remove service ${service_name}" :
+            command   => "Remove-Service -Name \"${service_name}\"",
+            provider  => pwsh,
+            logoutput => true,
+            onlyif    => "if ($(Get-Service ${service_name}).name -eq \"${service_name}\") {exit 0} else {exit 1}",
+          }
         }
       }
       default : {
