@@ -268,7 +268,18 @@ define stunnel::connection (
     }
   }
 
-  $config_file = "${stunnel::config_dir}/${stunnel_name}.conf"
+  case $facts['kernel'] {
+    'Linux' : {
+      $config_file = "${stunnel::config_dir}/${stunnel_name}.conf"
+    }
+    'windows' : {
+      $config_file = "${stunnel::config_dir}\\${stunnel_name}.conf"
+    }
+    default : {
+      fail("Unsupported kernel ${facts['kernel']} !")
+    }
+  }
+
   file { $config_file:
     ensure  => $ensure,
     mode    => '0664',
