@@ -52,7 +52,6 @@ foreground = yes
 <%- if $client { -%>
   client = <%= $client %>
 <%- } -%>
-
 <%- if $accept { -%>
   accept = <%= $accept %>
 <%- } -%>
@@ -65,7 +64,7 @@ foreground = yes
 <%- if $connect { -%>
   <%- if type($connect) =~ Type[String] { -%>
   connect = <%= $connect %>
-  <%- } else {-%>
+  <%- } else { -%>
     <%- $connect.each |$host| { -%>
   connect = <%= $host %>
     <%- } -%>
@@ -88,21 +87,19 @@ foreground = yes
 <%- if $failover { -%>
   failover = <%= $failover %>
 <%- } -%>
+<%- if $timeoutidle { -%>
+  TIMEOUTidle = <%= $timeoutidle %>
+<%- } -%>
 
 <%- if $openssl_options { -%>
   <%- $openssl_options.each |$value| { -%>
   options = <%= $value %>
   <%- } -%>
 <%- } -%>
-
 <%- if $socket_options { -%>
   <%- $socket_options.each |$value| { -%>
   socket = <%= $value %>
   <%- } -%>
-<%- } -%>
-
-<%- if $timeoutidle { -%>
-  TIMEOUTidle = <%= $timeoutidle %>
 <%- } -%>
 
 <%- if $service_options { -%>
