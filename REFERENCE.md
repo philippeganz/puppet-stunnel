@@ -40,6 +40,8 @@ The following parameters are available in the `stunnel` class:
 * [`config_dir`](#-stunnel--config_dir)
 * [`log_dir`](#-stunnel--log_dir)
 * [`packages`](#-stunnel--packages)
+* [`packages_ensure`](#-stunnel--packages_ensure)
+* [`packages_provider`](#-stunnel--packages_provider)
 * [`pid_dir`](#-stunnel--pid_dir)
 * [`service_init_system`](#-stunnel--service_init_system)
 * [`user`](#-stunnel--user)
@@ -90,6 +92,29 @@ Default value: `undef`
 Data type: `Optional[Array]`
 
 List of packages to install.
+
+Default value: `undef`
+
+##### <a name="-stunnel--packages_ensure"></a>`packages_ensure`
+
+Data type:
+
+```puppet
+Optional[Enum[
+      'present',
+      'latest'
+  ]]
+```
+
+If packages should be updated or not.
+
+Default value: `undef`
+
+##### <a name="-stunnel--packages_provider"></a>`packages_provider`
+
+Data type: `Optional[String]`
+
+Provider to use to install the packages. Mandatory on Windows.
 
 Default value: `undef`
 
@@ -237,7 +262,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--client"></a>`client`
 
-Data type: `Optional[Boolean]`
+Data type: `Optional[Enum['yes','no']]`
 
 Client mode (remote service uses TLS).
 
