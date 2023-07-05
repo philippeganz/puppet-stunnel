@@ -43,7 +43,6 @@ The following parameters are available in the `stunnel` class:
 * [`packages_ensure`](#-stunnel--packages_ensure)
 * [`packages_provider`](#-stunnel--packages_provider)
 * [`pid_dir`](#-stunnel--pid_dir)
-* [`service_init_system`](#-stunnel--service_init_system)
 * [`user`](#-stunnel--user)
 * [`group`](#-stunnel--group)
 
@@ -100,9 +99,9 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Enum[
-      'present',
-      'latest'
+Optional[Enum[
+      'present',
+      'latest'
   ]]
 ```
 
@@ -123,15 +122,6 @@ Default value: `undef`
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the pid file.
-Linux only.
-
-Default value: `undef`
-
-##### <a name="-stunnel--service_init_system"></a>`service_init_system`
-
-Data type: `Optional[String]`
-
-System service responsible to launch the stunnel service.
 Linux only.
 
 Default value: `undef`
@@ -161,7 +151,7 @@ Establishes a new stunnel connection.
 * **Since** 0.0.0
 
 * **See also**
-  * <https://www.stunnel.org/static/stunnel.html>
+  * https://www.stunnel.org/static/stunnel.html
 
 #### Examples
 
@@ -250,9 +240,9 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      Boolean,
-      Enum['mask']
+Optional[Variant[
+      Boolean,
+      Enum['mask']
   ]]
 ```
 
@@ -273,9 +263,9 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      String,
-      Integer[0]
+Optional[Variant[
+      String,
+      Integer[0]
   ]]
 ```
 
@@ -312,9 +302,9 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      String,
-      Array[String]
+Optional[Variant[
+      String,
+      Array[String]
   ]]
 ```
 
@@ -446,9 +436,9 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Hash[
-      String,
-      Data
+Optional[Hash[
+      String,
+      Data
   ]]
 ```
 
@@ -483,12 +473,13 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Hash[
-      String,
-      Data
+Optional[Hash[
+      String,
+      Data
   ]]
 ```
 
 Any supported global option currently not available in this define.
 
 Default value: `undef`
+
