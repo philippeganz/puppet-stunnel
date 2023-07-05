@@ -31,10 +31,6 @@
 #   Path to the directory containing the pid file. 
 #   Linux only.
 # 
-# @param service_init_system
-#   System service responsible to launch the stunnel service.
-#   Linux only.
-# 
 # @param user
 #   User that will own the files and run the service.
 # 
@@ -66,7 +62,6 @@ class stunnel (
   ]]                             $packages_ensure     = undef,
   Optional[String]               $packages_provider   = undef,
   Optional[Stdlib::Absolutepath] $pid_dir             = undef,
-  Optional[String]               $service_init_system = undef,
   Optional[String]               $user                = undef,
   Optional[String]               $group               = undef,
 ) {

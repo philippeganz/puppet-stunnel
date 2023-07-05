@@ -6,7 +6,6 @@ stunnel::config_dir: /etc/stunnel
 stunnel::conf_d_dir: /etc/stunnel/conf.d
 stunnel::log_dir: /var/log/stunnel
 stunnel::pid_dir: /run
-stunnel::service_init_system: systemd
 stunnel::user: root
 stunnel::group: root
 stunnel::packages_ensure: latest
