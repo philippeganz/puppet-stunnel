@@ -224,6 +224,8 @@ define stunnel::connection (
       file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem":
         ensure  => absent,
       }
+      $ca_file = undef
+      $ca_file_ensure = undef
     }
   }
   if $ca_file_ensure {
@@ -247,6 +249,8 @@ define stunnel::connection (
       file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem":
         ensure  => absent,
       }
+      $cert_file = undef
+      $cert_file_ensure = undef
     }
   }
   if $cert_file_ensure {
@@ -270,6 +274,8 @@ define stunnel::connection (
       file { "${stunnel::cert_dir}${path_connector}${stunnel_name}.key":
         ensure  => absent,
       }
+      $key_file = undef
+      $key_file_ensure = undef
     }
   }
   if $key_file_ensure {
