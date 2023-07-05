@@ -1,14 +1,6 @@
 ---
 stunnel::bin_name: stunnel4
-stunnel::bin_path: /usr/bin
-stunnel::cert_dir: /etc/stunnel/certs
-stunnel::config_dir: /etc/stunnel
-stunnel::conf_d_dir: /etc/stunnel/conf.d
 stunnel::log_dir: /var/log/stunnel4
 stunnel::packages:
   - stunnel4
   - lsb-base
-stunnel::pid_dir: /run
-stunnel::service_init_system: systemd
-stunnel::user: root
-stunnel::group: root

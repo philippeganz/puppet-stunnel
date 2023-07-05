@@ -8,3 +8,4 @@ stunnel::packages:
   - stunnel
 stunnel::packages_provider: chocolatey
 stunnel::user: Administrators
+stunnel::group: ~
