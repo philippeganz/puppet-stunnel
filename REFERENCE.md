@@ -99,9 +99,12 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Enum[
-      'present',
-      'latest'
+Optional[Enum[
+
+      'present',
+
+      'latest'
+
   ]]
 ```
 
@@ -151,7 +154,7 @@ Establishes a new stunnel connection.
 * **Since** 0.0.0
 
 * **See also**
-  * https://www.stunnel.org/static/stunnel.html
+  * <https://www.stunnel.org/static/stunnel.html>
 
 #### Examples
 
@@ -240,9 +243,12 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      Boolean,
-      Enum['mask']
+Optional[Variant[
+
+      Boolean,
+
+      Enum['mask']
+
   ]]
 ```
 
@@ -263,9 +269,12 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      String,
-      Integer[0]
+Optional[Variant[
+
+      String,
+
+      Integer[0]
+
   ]]
 ```
 
@@ -302,9 +311,12 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Variant[
-      String,
-      Array[String]
+Optional[Variant[
+
+      String,
+
+      Array[String]
+
   ]]
 ```
 
@@ -436,9 +448,12 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Hash[
-      String,
-      Data
+Optional[Hash[
+
+      String,
+
+      Data
+
   ]]
 ```
 
@@ -473,13 +488,15 @@ Default value: `undef`
 Data type:
 
 ```puppet
-Optional[Hash[
-      String,
-      Data
+Optional[Hash[
+
+      String,
+
+      Data
+
   ]]
 ```
 
 Any supported global option currently not available in this define.
 
 Default value: `undef`
-
