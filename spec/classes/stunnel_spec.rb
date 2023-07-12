@@ -12,26 +12,47 @@ describe 'stunnel' do
       context 'empty parameters' do
         case os_facts[:osfamily]
         when 'Debian'
-          it { is_expected.to contain_package('stunnel4')}
-          it { is_expected.to contain_package('lsb-base')}
+          it { is_expected.to contain_package('stunnel4') }
+          it { is_expected.to contain_package('lsb-base') }
         when 'RedHat'
-          it { is_expected.to contain_package('stunnel')}
-          it { is_expected.to contain_package('redhat-lsb')}
+          it { is_expected.to contain_package('stunnel') }
+          it { is_expected.to contain_package('redhat-lsb') }
         when 'Suse'
-          it { is_expected.to contain_package('stunnel')}
+          it { is_expected.to contain_package('stunnel') }
         when 'windows'
-          it { is_expected.to contain_package('stunnel').with({ :provider => "chocolatey", }) }
-          it { is_expected.to contain_file("C:\\Program Files (x86)\\stunnel\\certs").with({:owner => 'Administrators', :group => nil, :mode => '0775', })}
-          it { is_expected.to contain_file("C:\\Program Files (x86)\\stunnel\\config").with({:owner => 'Administrators', :group => nil, :mode => '0775', })}
-          it { is_expected.to contain_file("C:\\Program Files (x86)\\stunnel\\log").with({:owner => 'Administrators', :group => nil, :mode => '0775', })}
+          it { is_expected.to contain_package('stunnel').with({ provider: 'chocolatey', }) }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\log')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
         end
         if os_facts[:kernel] == 'Linux'
-          it { is_expected.to contain_file('/etc/stunnel/certs').with({:owner => 'root', :group => 'root', :mode => '0775', })}
-          it { is_expected.to contain_file('/etc/stunnel').with({:owner => 'root', :group => 'root', :mode => '0775', })}
+          it {
+            is_expected.to contain_file('/etc/stunnel/certs')
+              .with({ owner: 'root', group: 'root', mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('/etc/stunnel')
+              .with({ owner: 'root', group: 'root', mode: '0775', })
+          }
           if os_facts[:osfamily] == 'Debian'
-            it { is_expected.to contain_file('/var/log/stunnel4').with({:owner => 'root', :group => 'root', :mode => '0775', })}
+            it {
+              is_expected.to contain_file('/var/log/stunnel4')
+                .with({ owner: 'root', group: 'root', mode: '0775', })
+            }
           else
-            it { is_expected.to contain_file('/var/log/stunnel').with({:owner => 'root', :group => 'root', :mode => '0775', })}
+            it {
+              is_expected.to contain_file('/var/log/stunnel')
+                .with({ owner: 'root', group: 'root', mode: '0775', })
+            }
           end
         end
       end
