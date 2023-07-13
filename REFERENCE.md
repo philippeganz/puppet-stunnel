@@ -11,7 +11,7 @@ Installs the packages and creates essential directories.
 
 ### Defined types
 
-* [`stunnel::connection`](#stunnel--connection): Establishes a new stunnel connection.
+* [`stunnel::connection`](#stunnelconnection): Establishes a new stunnel connection.
 
 ## Classes
 
@@ -34,127 +34,120 @@ include stunnel
 
 The following parameters are available in the `stunnel` class:
 
-* [`bin_name`](#-stunnel--bin_name)
-* [`bin_path`](#-stunnel--bin_path)
-* [`cert_dir`](#-stunnel--cert_dir)
-* [`config_dir`](#-stunnel--config_dir)
-* [`log_dir`](#-stunnel--log_dir)
-* [`packages`](#-stunnel--packages)
-* [`packages_ensure`](#-stunnel--packages_ensure)
-* [`packages_provider`](#-stunnel--packages_provider)
-* [`pid_dir`](#-stunnel--pid_dir)
-* [`user`](#-stunnel--user)
-* [`group`](#-stunnel--group)
+* [`bin_name`](#bin_name)
+* [`bin_path`](#bin_path)
+* [`cert_dir`](#cert_dir)
+* [`config_dir`](#config_dir)
+* [`log_dir`](#log_dir)
+* [`packages`](#packages)
+* [`packages_ensure`](#packages_ensure)
+* [`packages_provider`](#packages_provider)
+* [`pid_dir`](#pid_dir)
+* [`user`](#user)
+* [`group`](#group)
 
-##### <a name="-stunnel--bin_name"></a>`bin_name`
+##### <a name="bin_name"></a>`bin_name`
 
 Data type: `Optional[String]`
 
 Name of the stunnel executable.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--bin_path"></a>`bin_path`
+##### <a name="bin_path"></a>`bin_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the stunnel executable.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--cert_dir"></a>`cert_dir`
+##### <a name="cert_dir"></a>`cert_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the certificates.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--config_dir"></a>`config_dir`
+##### <a name="config_dir"></a>`config_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the configuration files.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--log_dir"></a>`log_dir`
+##### <a name="log_dir"></a>`log_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the output files.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--packages"></a>`packages`
+##### <a name="packages"></a>`packages`
 
 Data type: `Optional[Array]`
 
 List of packages to install.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--packages_ensure"></a>`packages_ensure`
+##### <a name="packages_ensure"></a>`packages_ensure`
 
-Data type:
-
-```puppet
-Optional[Enum[
-
+Data type: `Optional[Enum[
       'present',
-
       'latest'
-
-  ]]
-```
+  ]]`
 
 If packages should be updated or not.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--packages_provider"></a>`packages_provider`
+##### <a name="packages_provider"></a>`packages_provider`
 
 Data type: `Optional[String]`
 
 Provider to use to install the packages. Mandatory on Windows.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--pid_dir"></a>`pid_dir`
+##### <a name="pid_dir"></a>`pid_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory containing the pid file.
 Linux only.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--user"></a>`user`
+##### <a name="user"></a>`user`
 
 Data type: `Optional[String]`
 
 User that will own the files and run the service.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--group"></a>`group`
+##### <a name="group"></a>`group`
 
 Data type: `Optional[String]`
 
 Group that will own the files and run the service.
 
-Default value: `undef`
+Default value: ``undef``
 
 ## Defined types
 
-### <a name="stunnel--connection"></a>`stunnel::connection`
+### <a name="stunnelconnection"></a>`stunnel::connection`
 
 Establishes a new stunnel connection.
 
 * **Since** 0.0.0
 
 * **See also**
-  * <https://www.stunnel.org/static/stunnel.html>
+  * https://www.stunnel.org/static/stunnel.html
 
 #### Examples
 
@@ -180,33 +173,33 @@ stunnel::connection {'my_tunnel':
 
 The following parameters are available in the `stunnel::connection` defined type:
 
-* [`stunnel_name`](#-stunnel--connection--stunnel_name)
-* [`ensure`](#-stunnel--connection--ensure)
-* [`manage_service`](#-stunnel--connection--manage_service)
-* [`active`](#-stunnel--connection--active)
-* [`enable`](#-stunnel--connection--enable)
-* [`client`](#-stunnel--connection--client)
-* [`accept`](#-stunnel--connection--accept)
-* [`protocol`](#-stunnel--connection--protocol)
-* [`protocol_host`](#-stunnel--connection--protocol_host)
-* [`connect`](#-stunnel--connection--connect)
-* [`failover`](#-stunnel--connection--failover)
-* [`ca_file_path`](#-stunnel--connection--ca_file_path)
-* [`ca_file_content`](#-stunnel--connection--ca_file_content)
-* [`ca_dir_path`](#-stunnel--connection--ca_dir_path)
-* [`cert_file_path`](#-stunnel--connection--cert_file_path)
-* [`cert_file_content`](#-stunnel--connection--cert_file_content)
-* [`key_file_path`](#-stunnel--connection--key_file_path)
-* [`key_file_content`](#-stunnel--connection--key_file_content)
-* [`timeoutidle`](#-stunnel--connection--timeoutidle)
-* [`openssl_options`](#-stunnel--connection--openssl_options)
-* [`socket_options`](#-stunnel--connection--socket_options)
-* [`service_options`](#-stunnel--connection--service_options)
-* [`debug_level`](#-stunnel--connection--debug_level)
-* [`log_file`](#-stunnel--connection--log_file)
-* [`global_options`](#-stunnel--connection--global_options)
+* [`stunnel_name`](#stunnel_name)
+* [`ensure`](#ensure)
+* [`manage_service`](#manage_service)
+* [`active`](#active)
+* [`enable`](#enable)
+* [`client`](#client)
+* [`accept`](#accept)
+* [`protocol`](#protocol)
+* [`protocol_host`](#protocol_host)
+* [`connect`](#connect)
+* [`failover`](#failover)
+* [`ca_file_path`](#ca_file_path)
+* [`ca_file_content`](#ca_file_content)
+* [`ca_dir_path`](#ca_dir_path)
+* [`cert_file_path`](#cert_file_path)
+* [`cert_file_content`](#cert_file_content)
+* [`key_file_path`](#key_file_path)
+* [`key_file_content`](#key_file_content)
+* [`timeoutidle`](#timeoutidle)
+* [`openssl_options`](#openssl_options)
+* [`socket_options`](#socket_options)
+* [`service_options`](#service_options)
+* [`debug_level`](#debug_level)
+* [`log_file`](#log_file)
+* [`global_options`](#global_options)
 
-##### <a name="-stunnel--connection--stunnel_name"></a>`stunnel_name`
+##### <a name="stunnel_name"></a>`stunnel_name`
 
 Data type: `String`
 
@@ -214,7 +207,7 @@ Name of the stunnel connection.
 
 Default value: `$name`
 
-##### <a name="-stunnel--connection--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -222,69 +215,55 @@ Wheather the connection should be created or deleted.
 
 Default value: `'present'`
 
-##### <a name="-stunnel--connection--manage_service"></a>`manage_service`
+##### <a name="manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
 Wheather or not a service should be created for this connection.
 
-Default value: `true`
+Default value: ``true``
 
-##### <a name="-stunnel--connection--active"></a>`active`
+##### <a name="active"></a>`active`
 
 Data type: `Optional[Boolean]`
 
 Weather the service should be running or not. Needs manage_service to be true.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--enable"></a>`enable`
+##### <a name="enable"></a>`enable`
 
-Data type:
-
-```puppet
-Optional[Variant[
-
+Data type: `Optional[Variant[
       Boolean,
-
       Enum['mask']
-
-  ]]
-```
+  ]]`
 
 Weather the service should be set to run at boot. Needs manage_service to be true.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--client"></a>`client`
+##### <a name="client"></a>`client`
 
 Data type: `Optional[Enum['yes','no']]`
 
 Client mode (remote service uses TLS).
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--accept"></a>`accept`
+##### <a name="accept"></a>`accept`
 
-Data type:
-
-```puppet
-Optional[Variant[
-
+Data type: `Optional[Variant[
       String,
-
       Integer[0]
-
-  ]]
-```
+  ]]`
 
 Accept connections on specified address.
 If no host specified, defaults to all IPv4 addresses for the local host.
 To listen on all IPv6 addresses use: :::PORT
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--protocol"></a>`protocol`
+##### <a name="protocol"></a>`protocol`
 
 Data type: `Optional[String]`
 
@@ -293,9 +272,9 @@ This option enables initial, protocol-specific negotiation of the TLS encryption
 The protocol option should not be used with TLS encryption on a separate port.
 See official stunnel documentation for supported protocol.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--protocol_host"></a>`protocol_host`
+##### <a name="protocol_host"></a>`protocol_host`
 
 Data type: `Optional[String]`
 
@@ -304,30 +283,23 @@ For the 'connect' protocol negotiations, protocolHost specifies HOST:PORT of the
 The proxy server directly connected by stunnel must be specified with the connect option.
 For the 'smtp' protocol negotiations, protocolHost controls the client SMTP HELO/EHLO value.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--connect"></a>`connect`
+##### <a name="connect"></a>`connect`
 
-Data type:
-
-```puppet
-Optional[Variant[
-
+Data type: `Optional[Variant[
       String,
-
       Array[String]
-
-  ]]
-```
+  ]]`
 
 Connect to a remote address.
 If no host is specified, the host defaults to localhost.
 Multiple connect options are allowed in a single service section. If host resolves to multiple addresses and/or if multiple connect
 options are specified, then the remote address is chosen using a round-robin algorithm.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--failover"></a>`failover`
+##### <a name="failover"></a>`failover`
 
 Data type: `Optional[Enum['rr','prio']]`
 
@@ -336,27 +308,27 @@ rr    round robin - fair load distribution
 prio  priority - use the order specified in config file
 default: prio
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--ca_file_path"></a>`ca_file_path`
+##### <a name="ca_file_path"></a>`ca_file_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Load trusted CA certificates from a file.
 The loaded CA certificates will be used with the verifyChain and verifyPeer options.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--ca_file_content"></a>`ca_file_content`
+##### <a name="ca_file_content"></a>`ca_file_content`
 
 Data type: `Optional[String]`
 
 If specified, will populate the CA file @ca_file_path. If this path is not specified, it will populate a default CA file
 in cert_dir/stunnel_name_CA.pem
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--ca_dir_path"></a>`ca_dir_path`
+##### <a name="ca_dir_path"></a>`ca_dir_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -367,9 +339,9 @@ The hash algorithm has been changed in OpenSSL 1.0.0. It is required to c_rehash
 OpenSSL 1.x.x or later.
 CApath path is relative to the chroot directory if specified.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--cert_file_path"></a>`cert_file_path`
+##### <a name="cert_file_path"></a>`cert_file_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -380,18 +352,18 @@ self-signed root CA certificate. The file must be either in PEM or P12 format.
 A certificate chain is required in server mode, and optional in client mode.
 This parameter is also used as the certificate identifier when a hardware engine is enabled.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--cert_file_content"></a>`cert_file_content`
+##### <a name="cert_file_content"></a>`cert_file_content`
 
 Data type: `Optional[String]`
 
 If specified, will populate the cert file @cert_file_path. If this path is not specified, it will populate a default cert file
 in cert_dir/stunnel_name_cert.pem
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--key_file_path"></a>`key_file_path`
+##### <a name="key_file_path"></a>`key_file_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -402,26 +374,26 @@ chmod 600 keyfile
 This parameter is also used as the private key identifier when a hardware engine is enabled.
 default: the value of the cert option
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--key_file_content"></a>`key_file_content`
+##### <a name="key_file_content"></a>`key_file_content`
 
 Data type: `Optional[String]`
 
 If specified, will populate the key file @key_file_path. If this path is not specified, it will populate a default key file
 in cert_dir/stunnel_name.key
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--timeoutidle"></a>`timeoutidle`
+##### <a name="timeoutidle"></a>`timeoutidle`
 
 Data type: `Optional[Integer[0]]`
 
 Time to keep an idle connection.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--openssl_options"></a>`openssl_options`
+##### <a name="openssl_options"></a>`openssl_options`
 
 Data type: `Optional[Array[String]]`
 
@@ -432,36 +404,29 @@ Several option lines can be used to specify multiple options. An option name can
 Use sslVersionMax or sslVersionMin option instead of disabling specific TLS protocol versions when compiled with OpenSSL 1.1.0 or
 later.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--socket_options"></a>`socket_options`
+##### <a name="socket_options"></a>`socket_options`
 
 Data type: `Optional[Array[String]]`
 
 Set an option on the accept/local/remote socket.
 The values for the linger option are l_onof:l_linger. The values for the time are tv_sec:tv_usec.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--service_options"></a>`service_options`
+##### <a name="service_options"></a>`service_options`
 
-Data type:
-
-```puppet
-Optional[Hash[
-
+Data type: `Optional[Hash[
       String,
-
       Data
-
-  ]]
-```
+  ]]`
 
 Any supported service option currently not available in this define.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--debug_level"></a>`debug_level`
+##### <a name="debug_level"></a>`debug_level`
 
 Data type: `Optional[Integer[0,7]]`
 
@@ -472,31 +437,25 @@ While the debug = debug or debug = 7 level generates the most verbose output, it
 Please only use this value if you are a developer, or you intend to send your logs to our technical support. Otherwise, the generated
 logs will be confusing.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--log_file"></a>`log_file`
+##### <a name="log_file"></a>`log_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Append log messages to a file.
 /dev/stdout device can be used to send log messages to the standard output (for example to log them with daemontools splogger).
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-stunnel--connection--global_options"></a>`global_options`
+##### <a name="global_options"></a>`global_options`
 
-Data type:
-
-```puppet
-Optional[Hash[
-
+Data type: `Optional[Hash[
       String,
-
       Data
-
-  ]]
-```
+  ]]`
 
 Any supported global option currently not available in this define.
 
-Default value: `undef`
+Default value: ``undef``
+
