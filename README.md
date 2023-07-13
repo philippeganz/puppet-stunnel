@@ -14,7 +14,9 @@
 ## Module Description
 
 This module aims to provide a wrapper around the [stunnel](https://www.stunnel.org/) software.
+
 It helps you put in place stunnel connections with only a few lines of yaml.
+
 It does not aim at replacing the software nor take ownership for their code.
 
 From the creator's description :
@@ -54,6 +56,7 @@ All options and possibilities can be found in the [REFERENCE](REFERENCE.md) file
 ### Create a client-server connection
 
 Having following layout
+
 (32000) Client (Dynamic range) <--> (1564) Server (27000)
 
 The client would look like this
@@ -90,6 +93,7 @@ stunnel::connection {'my_tunnel':
 ### Create a client stunnel connecting through a proxy
 
 Now imagine you add a proxy in the middle
+
 (32000) Client (Dynamic range) <--> (8080) Proxy (Dynamic range) <--> (1564) Server (27000)
 
 ```puppet
@@ -111,21 +115,24 @@ stunnel::connection {'my_tunnel':
 ## Limitations
 
 Support for older operating system have not been ported from arusso's version.
+
 This module depends greatly on features implemented by the stunnel team, no warranties on those, you'll have to deal with them if something isn't working as expected.
 
 ## Development
 
 This module has been forked from arusso (thanks a lot for your work !).
+
 It has been ported to Puppet 7 with modern dependencies and good practices.
+
 Please do contribute if you're missing some features or create an issue.
 
 ### Contributors
 
-* **Yann Vigara**
-* **Ross Williams**
-* **John Cooper**
-* **Francois Gouteroux**
-* **Stephen Hoekstra**
-* **mjs510**
-* **Olivier Fontannaud**
-* **Philippe Ganz**
+* Yann Vigara
+* Ross Williams
+* John Cooper
+* Francois Gouteroux
+* Stephen Hoekstra
+* mjs510
+* Olivier Fontannaud
+* Philippe Ganz
