@@ -621,6 +621,8 @@ RSpec/Rails/TravelAround:
   Enabled: false
 RSpec/RedundantAround:
   Enabled: false
+RSpec/RepeatedExample:
+  Enabled: false
 RSpec/SkipBlockInsideExample:
   Enabled: false
 RSpec/SortMetadata:
