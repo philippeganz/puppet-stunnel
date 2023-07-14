@@ -1,5 +1,5 @@
 {
-  "name": "puppet-stunnel",
+  "name": "philippeganz-stunnel",
   "version": "3.0.0",
   "author": "Philippe Ganz",
   "summary": "Stunnel connections management",

@@ -1,0 +1,14 @@
+name: Puppet syntax checks
+run-name: ${{ github.actor }} is running Puppet syntax checks
+on:
+  - push
+  - pull_request
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    container: puppet/pdk:latest
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v3
+    - name: pdk validate
+      run: pdk validate --puppet-version=7

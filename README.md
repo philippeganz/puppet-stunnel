@@ -1,4 +1,8 @@
-# puppet-stunnel
+# stunnel
+
+[![PDK validate](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml)
+[![PDK test unit](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml)
+[![MIT License](https://img.shields.io/github/license/philippeganz/puppet-stunnel.svg)](LICENSE)
 
 ## Table of Contents
 
