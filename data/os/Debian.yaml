@@ -1,0 +1,6 @@
+---
+stunnel::bin_name: stunnel4
+stunnel::log_dir: /var/log/stunnel4
+stunnel::packages:
+  - stunnel4
+  - lsb-base

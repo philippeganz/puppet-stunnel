@@ -1,0 +1,109 @@
+<%- | Optional[String]               $stunnel_name,
+      Optional[Enum['yes','no']]     $client,
+      Optional[Variant[
+          String,
+          Integer[0]
+      ]]                             $accept,
+      Optional[String]               $protocol,
+      Optional[String]               $protocol_host,
+      Optional[Variant[
+          String,
+          Array[String]
+      ]]                             $connect,
+      Optional[Enum['rr','prio']]    $failover,
+      Optional[Stdlib::Absolutepath] $ca_file,
+      Optional[Stdlib::Absolutepath] $ca_dir,
+      Optional[Stdlib::Absolutepath] $cert_file,
+      Optional[Stdlib::Absolutepath] $key_file,
+      Optional[Array[String]]        $openssl_options,
+      Optional[Array[String]]        $socket_options,
+      Optional[Hash[
+          String,
+          Data
+      ]]                             $service_options,
+      Optional[Integer[0]]           $timeoutidle,
+      Optional[Integer[0,7]]         $debug_level,
+      Optional[Stdlib::Absolutepath] $log_file,
+      Optional[Hash[
+          String,
+          Data
+      ]]                             $global_options,
+| -%>
+; Stunnel config file for <%= $stunnel_name %>
+
+<%- if $debug_level { -%>
+debug = <%= $debug_level %>
+<%- } -%>
+<%- if $log_file { -%>
+output = <%= $log_file %>
+<%- } -%>
+<%- if $facts['kernel'] == 'Linux' and $stunnel_name { -%>
+service = <%= $stunnel_name %>
+foreground = yes
+<%- } -%>
+
+<%- if $global_options { -%>
+  <-% $global_options.each |$key, $value| { -%>
+<%= $key %> = <%= $value %>
+  <-% } -%>
+<%- } -%>
+
+[<%= $stunnel_name %>]
+<%- if $client { -%>
+  client = <%= $client %>
+<%- } -%>
+<%- if $accept { -%>
+  accept = <%= $accept %>
+<%- } -%>
+<%- if $protocol { -%>
+  protocol = <%= $protocol %>
+<%- } -%>
+<%- if $protocol_host { -%>
+  protocolHost = <%= $protocol_host %>
+<%- } -%>
+<%- if $connect { -%>
+  <%- if type($connect) =~ Type[String] { -%>
+  connect = <%= $connect %>
+  <%- } else { -%>
+    <%- $connect.each |$host| { -%>
+  connect = <%= $host %>
+    <%- } -%>
+  <%- } -%>
+<%- } -%>
+
+<%- if $ca_file { -%>
+  CAfile = <%= $ca_file %>
+<%- } -%>
+<%- if $ca_dir { -%>
+  CApath = <%= $ca_dir %>
+<%- } -%>
+<%- if $cert_file { -%>
+  cert = <%= $cert_file %>
+<%- } -%>
+<%- if $key_file { -%>
+  key = <%= $key_file %>
+<%- } -%>
+
+<%- if $failover { -%>
+  failover = <%= $failover %>
+<%- } -%>
+<%- if $timeoutidle { -%>
+  TIMEOUTidle = <%= $timeoutidle %>
+<%- } -%>
+
+<%- if $openssl_options { -%>
+  <%- $openssl_options.each |$value| { -%>
+  options = <%= $value %>
+  <%- } -%>
+<%- } -%>
+<%- if $socket_options { -%>
+  <%- $socket_options.each |$value| { -%>
+  socket = <%= $value %>
+  <%- } -%>
+<%- } -%>
+
+<%- if $service_options { -%>
+  <%- $service_options.each |$key, $value| { -%>
+  <%= $key %> = <%= $value %>
+  <%- } -%>
+<%- } -%>

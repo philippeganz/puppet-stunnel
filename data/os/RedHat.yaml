@@ -1,0 +1,4 @@
+---
+stunnel::packages:
+  - stunnel
+  - redhat-lsb

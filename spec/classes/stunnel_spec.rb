@@ -1,58 +1,61 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'stunnel' do
-  context "=> redhat" do
-    let(:facts) { { 'osfamily' => 'RedHat' } }
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
 
-    context "=> install helper script" do
-      # make sure we include stunnel::data
-      it do
-        should contain_stunnel__data
+      it { is_expected.to compile.with_all_deps }
+
+      context 'empty parameters' do
+        case os_facts[:osfamily]
+        when 'Debian'
+          it { is_expected.to contain_package('stunnel4') }
+          it { is_expected.to contain_package('lsb-base') }
+        when 'RedHat'
+          it { is_expected.to contain_package('stunnel') }
+          it { is_expected.to contain_package('redhat-lsb') }
+        when 'Suse'
+          it { is_expected.to contain_package('stunnel') }
+        when 'windows'
+          it { is_expected.to contain_package('stunnel').with({ provider: 'chocolatey', }) }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\log')
+              .with({ owner: 'Administrators', group: nil, mode: '0775', })
+          }
+        end
+        if os_facts[:kernel] == 'Linux'
+          it {
+            is_expected.to contain_file('/etc/stunnel/certs')
+              .with({ owner: 'root', group: 'root', mode: '0775', })
+          }
+          it {
+            is_expected.to contain_file('/etc/stunnel')
+              .with({ owner: 'root', group: 'root', mode: '0775', })
+          }
+          if os_facts[:osfamily] == 'Debian'
+            it {
+              is_expected.to contain_file('/var/log/stunnel4')
+                .with({ owner: 'root', group: 'root', mode: '0775', })
+            }
+          else
+            it {
+              is_expected.to contain_file('/var/log/stunnel')
+                .with({ owner: 'root', group: 'root', mode: '0775', })
+            }
+          end
+        end
       end
-
-      # install our cert generation script used by the stunnel::tun
-      it do
-        file_loc = '/usr/local/bin/stunnel-combine-certs'
-        params = {
-          'owner' => 'root',
-          'group' => 'root',
-          'mode'  => '0555',
-          'ensure' => 'present',
-        }
-
-        should contain_file( file_loc ).with( params )
-      end
-    end
-  end
-  context "=> Debian/Ubuntu" do
-    let(:facts) { { 'osfamily' => 'Debian' } }
-
-    context "=> install helper script" do
-      # make sure we include stunnel::data
-      it do
-        should contain_stunnel__data
-      end
-
-      # install our cert generation script used by the stunnel::tun
-      it do
-        file_loc = '/usr/local/bin/stunnel-combine-certs'
-        params = {
-          'owner' => 'root',
-          'group' => 'root',
-          'mode'  => '0555',
-          'ensure' => 'present',
-        }
-
-        should contain_file( file_loc ).with( params )
-      end
-    end
-  end
-
-  context "=> other OS families" do
-    it do
-      expect {
-        should contain_stunnel__data
-      }.to raise_error(Puppet::Error,/unsupported/i)
     end
   end
 end
