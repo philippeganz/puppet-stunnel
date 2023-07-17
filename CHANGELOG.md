@@ -2,7 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2016-04-08 Aaron Russo <arusso@berkeley.edu> - 2.2.0
+## [Unreleased]
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [3.0.0] - 2023-07-14
+
+### Added
+* Support for Windows platform
+* Puppet 7 support
+* Hiera 5 data
+* PDK stack for syntax validation and unit testing
+
+### Changed
+* Stunnel class has a new interface to tune configuration
+* Tun define has been renamed to connection with following new features
+  * New interface
+  * OS service management
+  * Certificate as content or path
+* Stunnel config template has been rewritten in epp
+
+### Deprecated
+
+### Removed
+* Certificate concatenation functionnality
+* Config class has been moved to init class
+* Data class has been moved to hiera 5 data
+* Install class has been moved to init class
+
+### Fixed
+
+### Security
+
+## [2.2.0] - 2016-04-08
 
 * stunnel::tun options parameter now handles an array for multiple options (mjs510)
 * support uninstalling stunnel::tun resources (mjs510)
@@ -11,12 +53,12 @@ All notable changes to this project will be documented in this file.
 * fix: actually use a custom stunnel::tun template if provided (albustax)
 * fix: anchor regex pattern validating failover param (mjs510)
 
-## 2015-02-19 Aaron Russo <arusso@berkeley.edu> - 2.1.1
+## [2.1.1] - 2015-02-19
 
 * stop testing puppet 3.3 and 3.4, test 3.6 and 3.7 (with and w/o future parser)
 * fix syntax error in metadata.json causing puppet to fail
 
-## 2015-02-19 Aaron Russo <arusso@berkeley.edu> - 2.1.0
+## [2.1.0] - 2015-02-19
 
 * only install lsb-base on debian based systems (kronos-pbrideau)
 * allow management of tunnel service (kronos-pbrideau)
@@ -26,12 +68,12 @@ All notable changes to this project will be documented in this file.
 * add support for global_opts (choffee)
 * add native support for CAFile option per-tunnel
 
-## 2014-09-17 Aaron Russo <arusso@berkeley.edu> - 2.0.0
+## [2.0.0] - 2014-09-17
 
 * convert string representations of booleans into valid booleans (#13,14) (fgouteroux)
 * sort options in the tun file to prevent constant puppet change notifications (choffee)
 
-## 2014-05-08 Aaron Russo <arusso@berkeley.edu> - 1.2.0
+## [1.2.0] - 2014-05-08
 
 * match stunnel defaults w/debug=5 (#8)
 * add parameter to specify location of output (logging) (#8)
@@ -39,29 +81,29 @@ All notable changes to this project will be documented in this file.
   specifying additional global and service parameters (#8)
 * bugfix: properly implement timeoutidle (#9)
 
-## 2014-03-31 Aaron Russo <arusso@berkeley.edu> - 1.1.1
+## [1.1.1] - 2014-03-31
 
 * issue #6 : improved README documentation (ross-williams)
 
-## 2014-03-20 Aaron Russo <arusso@berkeley.edu> - 1.1.0
+## [1.1.0] - 2014-03-20
 
 * issue #5 : add parameter to setup client tunnels
 
-## 2014-03-17 Aaron Russo <arusso@berkeley.edu> - 1.0.1
+## [1.0.1] - 2014-03-17
 
 * Ensure lsb is installed
 * bugfix: we weren't installing the right package on Debian systems
 
-## 2013-08-26 Aaron Russo <arusso@berkeley.edu> - 1.0.0
+## [1.0.0] - 2013-08-26
 
 * Debian/Ubuntu support (yvigara)
 
-## 2013-08-16 Aaron Russo <arusso@berkeley.edu> - 0.0.2
+## [0.0.2] - 2013-08-16
 
 * Added initscript for each tunnel
 * moved away from multi-services per tunnel
 * moar examples!
 
-## 2013-08-12 Aaron Russo <arusso@berkeley.edu> - 0.0.1
+## [0.0.1] - 2013-08-12
 
 * Initial Release
