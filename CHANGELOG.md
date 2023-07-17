@@ -16,6 +16,21 @@ All notable changes to this project will be documented in this file.
 
 ### Security
 
+## [3.0.1] - 2023-07-17
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+* New release for Puppet Forge
+
+### Security
+
 ## [3.0.0] - 2023-07-14
 
 ### Added
