@@ -307,7 +307,7 @@ define stunnel::connection (
     }),
   }
 
-  if $manage_service {
+  if $manage_service and $ensure == 'present' {
     case $facts['kernel'] {
       'Linux' : {
         $service_name = "stunnel-${stunnel_name}.service"
