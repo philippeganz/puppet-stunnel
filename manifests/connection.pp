@@ -307,7 +307,7 @@ define stunnel::connection (
     }),
   }
 
-  if $manage_service and $ensure == 'present' {
+  if $manage_service {
     case $facts['kernel'] {
       'Linux' : {
         $service_name = "stunnel-${stunnel_name}.service"
@@ -326,8 +326,14 @@ define stunnel::connection (
           install_entry => {
             'WantedBy' => 'multi-user.target',
           },
-          active        => $active,
-          enable        => $enable,
+          active        => case $ensure {
+            'present' : { $active }
+            default   : { false }
+          },
+          enable        => case $ensure {
+            'present' : { $enable }
+            default   : { false }
+          },
         }
       }
       'windows' : {
