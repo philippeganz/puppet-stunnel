@@ -216,17 +216,15 @@ define stunnel::connection (
     if $ca_file_content {
       $ca_file_ensure = file
     }
+  } elsif $ca_file_content {
+    $ca_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem"
+    $ca_file_ensure = file
   } else {
-    if $ca_file_content {
-      $ca_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem"
-      $ca_file_ensure = file
-    } else {
-      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem":
-        ensure  => absent,
-      }
-      $ca_file = undef
-      $ca_file_ensure = undef
+    file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem":
+      ensure  => absent,
     }
+    $ca_file = undef
+    $ca_file_ensure = undef
   }
   if $ca_file_ensure {
     file { $ca_file:
@@ -241,17 +239,15 @@ define stunnel::connection (
     if $cert_file_content {
       $cert_file_ensure = file
     }
+  } elsif $cert_file_content {
+    $cert_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem"
+    $cert_file_ensure = file
   } else {
-    if $cert_file_content {
-      $cert_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem"
-      $cert_file_ensure = file
-    } else {
-      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem":
-        ensure  => absent,
-      }
-      $cert_file = undef
-      $cert_file_ensure = undef
+    file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem":
+      ensure  => absent,
     }
+    $cert_file = undef
+    $cert_file_ensure = undef
   }
   if $cert_file_ensure {
     file { $cert_file:
@@ -266,17 +262,15 @@ define stunnel::connection (
     if $key_file_content {
       $key_file_ensure = file
     }
+  } elsif $key_file_content {
+    $key_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}.key"
+    $key_file_ensure = file
   } else {
-    if $key_file_content {
-      $key_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}.key"
-      $key_file_ensure = file
-    } else {
-      file { "${stunnel::cert_dir}${path_connector}${stunnel_name}.key":
-        ensure  => absent,
-      }
-      $key_file = undef
-      $key_file_ensure = undef
+    file { "${stunnel::cert_dir}${path_connector}${stunnel_name}.key":
+      ensure  => absent,
     }
+    $key_file = undef
+    $key_file_ensure = undef
   }
   if $key_file_ensure {
     file { $key_file:
@@ -365,14 +359,14 @@ define stunnel::connection (
     }
     if $enable != undef or $active != undef {
       File[$config_file] ~> Service[$service_name]
-      if $ca_file_path {
-        File[$ca_file_path] ~> Service[$service_name]
+      if $ca_file {
+        File[$ca_file] ~> Service[$service_name]
       }
-      if $cert_file_path {
-        File[$cert_file_path] ~> Service[$service_name]
+      if $cert_file {
+        File[$cert_file] ~> Service[$service_name]
       }
-      if $key_file_path {
-        File[$key_file_path] ~> Service[$service_name]
+      if $key_file {
+        File[$key_file] ~> Service[$service_name]
       }
     }
   }
