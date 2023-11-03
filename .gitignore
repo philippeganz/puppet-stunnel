@@ -27,3 +27,5 @@
 /inventory.yaml
 /spec/fixtures/litmus_inventory.yaml
 .vscode/
+.cache/
+.config/

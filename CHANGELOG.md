@@ -4,32 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
 
-### Security
+* Services are now correctly notified on cert changes
+* Ensure absent now correctly removes the service on linux
 
 ## [3.0.1] - 2023-07-17
 
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
 * New release for Puppet Forge
-
-### Security
 
 ## [3.0.0] - 2023-07-14
 
@@ -47,17 +30,11 @@ All notable changes to this project will be documented in this file.
   * Certificate as content or path
 * Stunnel config template has been rewritten in epp
 
-### Deprecated
-
 ### Removed
 * Certificate concatenation functionnality
 * Config class has been moved to init class
 * Data class has been moved to hiera 5 data
 * Install class has been moved to init class
-
-### Fixed
-
-### Security
 
 ## [2.2.0] - 2016-04-08
 
