@@ -363,7 +363,7 @@ define stunnel::connection (
         fail("Unsupported kernel ${facts['kernel']} !")
       }
     }
-    if $enable != undef or $active != undef {
+    if $ensure == 'present' and ($enable != undef or $active != undef) {
       File[$config_file] ~> Service[$service_name]
       if $ca_file {
         File[$ca_file] ~> Service[$service_name]
