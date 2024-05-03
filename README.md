@@ -8,14 +8,20 @@
 
 ## Table of Contents
 
-1. [Module Description - What the module does and why it is useful](#module-description)
-1. [Setup - The basics of getting started with puppet-stunnel](#setup)
-   * [What puppet-stunnel affects](#what-puppet-stunnel-affects)
-   * [Setup requirements](#setup-requirements)
-   * [Beginning with puppet-stunnel](#beginning-with-puppet-stunnel)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+- [stunnel](#stunnel)
+  - [Table of Contents](#table-of-contents)
+  - [Module Description](#module-description)
+    - [References](#references)
+  - [Setup](#setup)
+    - [What puppet-stunnel affects](#what-puppet-stunnel-affects)
+    - [Setup requirements](#setup-requirements)
+    - [Beginning with puppet-stunnel](#beginning-with-puppet-stunnel)
+  - [Usage](#usage)
+    - [Create a client-server connection](#create-a-client-server-connection)
+    - [Create a client stunnel connecting through a proxy](#create-a-client-stunnel-connecting-through-a-proxy)
+  - [Limitations](#limitations)
+  - [Development](#development)
+    - [Contributors](#contributors)
 
 ## Module Description
 
