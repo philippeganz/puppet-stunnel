@@ -9,6 +9,6 @@ jobs:
     container: puppet/pdk:latest
     steps:
     - name: Clone repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: pdk validate
       run: pdk validate --puppet-version=7
