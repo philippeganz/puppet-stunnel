@@ -1,7 +1,7 @@
 # stunnel
 
-[![Puppet 7](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml)
-[![Puppet 8](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml)
+[![Puppet 7](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml)
+[![Puppet 8](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml)
 [![MIT License](https://img.shields.io/github/license/philippeganz/puppet-stunnel.svg)](LICENSE)
 
 ## Table of Contents
