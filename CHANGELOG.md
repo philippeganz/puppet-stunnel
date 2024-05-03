@@ -2,44 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
+
+## [3.1.0] - 2024-05-03
 
 ### Added
 
+* Add Puppet 8 validations
+
 ### Changed
 
-### Deprecated
+* Add support for RHEL 9, Ubuntu 24, Debian 10, 11 & 12
+* Add support for Puppet 8
+* Upgrade to PDK 3.0.1
 
 ### Removed
 
+* Drop support for Debian 7 & 8
+
 ### Fixed
 
-### Security
+* Services are now correctly notified on cert changes
+* Ensure absent now correctly removes the service on linux
 
 ## [3.0.1] - 2023-07-17
 
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
-* New release for Puppet Forge
 
-### Security
+* New release for Puppet Forge
 
 ## [3.0.0] - 2023-07-14
 
 ### Added
+
 * Support for Windows platform
 * Puppet 7 support
 * Hiera 5 data
 * PDK stack for syntax validation and unit testing
 
 ### Changed
+
 * Stunnel class has a new interface to tune configuration
 * Tun define has been renamed to connection with following new features
   * New interface
@@ -47,17 +49,12 @@ All notable changes to this project will be documented in this file.
   * Certificate as content or path
 * Stunnel config template has been rewritten in epp
 
-### Deprecated
-
 ### Removed
+
 * Certificate concatenation functionnality
 * Config class has been moved to init class
 * Data class has been moved to hiera 5 data
 * Install class has been moved to init class
-
-### Fixed
-
-### Security
 
 ## [2.2.0] - 2016-04-08
 
