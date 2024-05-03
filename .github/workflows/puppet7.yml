@@ -4,7 +4,7 @@ on:
   - push
   - pull_request
 jobs:
-  syntax:
+  lint:
     runs-on: ubuntu-latest
     container: puppet/pdk:latest
     steps:
@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v4
     - name: PDK syntax validation
       run: pdk validate --puppet-version=7 --format=junit:pdk.xml --format=text --parallel
-  unit:
+  unit_tests:
     runs-on: ubuntu-latest
     container: puppet/pdk:latest
     steps:
@@ -24,6 +24,5 @@ jobs:
       uses: mikepenz/action-junit-report@v4
       with:
         report_paths: 'pdk.xml'
-        include_passed: true
 permissions:
   checks: write
