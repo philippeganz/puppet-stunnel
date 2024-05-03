@@ -1,9 +1,17 @@
-name: Puppet unit tests
-run-name: ${{ github.actor }} is running Puppet 7 unit tests
+name: Puppet 7 validations
+run-name: ${{ github.actor }} is running Puppet 7 validations
 on:
   - push
   - pull_request
 jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    container: puppet/pdk:latest
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+    - name: pdk validate
+      run: pdk validate --puppet-version=7 --format=junit:pdk.xml --format=text --parallel
   unit:
     runs-on: ubuntu-latest
     container: puppet/pdk:latest
