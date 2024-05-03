@@ -1,5 +1,5 @@
 name: Puppet unit tests
-run-name: ${{ github.actor }} is running Puppet unit tests
+run-name: ${{ github.actor }} is running Puppet 8 unit tests
 on:
   - push
   - pull_request

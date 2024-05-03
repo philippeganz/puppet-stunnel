@@ -1,5 +1,5 @@
 name: Puppet syntax checks
-run-name: ${{ github.actor }} is running Puppet syntax checks
+run-name: ${{ github.actor }} is running Puppet 7 syntax checks
 on:
   - push
   - pull_request
