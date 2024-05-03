@@ -1,7 +1,9 @@
 # stunnel
 
-[![PDK validate](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml)
-[![PDK test unit](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml)
+[![Puppet 7 syntax](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7_validate.yml)
+[![Puppet 7 unit tests](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7_test_unit.yml)
+[![Puppet 8 syntax](https://github.com/philippeganz/puppet-stunnel/actions/workflows/validate.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8_validate.yml)
+[![Puppet 8 unit tests](https://github.com/philippeganz/puppet-stunnel/actions/workflows/test_unit.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8_test_unit.yml)
 [![MIT License](https://img.shields.io/github/license/philippeganz/puppet-stunnel.svg)](LICENSE)
 
 ## Table of Contents
