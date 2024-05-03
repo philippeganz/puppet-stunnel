@@ -2,6 +2,11 @@
 
 [![Puppet 7](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml)
 [![Puppet 8](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/philippeganz-stunnel)
 [![MIT License](https://img.shields.io/github/license/philippeganz/puppet-stunnel.svg)](LICENSE)
 
 ## Table of Contents
