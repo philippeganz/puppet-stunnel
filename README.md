@@ -143,6 +143,7 @@ Please do contribute if you're missing some features or create an issue.
 
 ### Contributors
 
+* Aaron Russo
 * Yann Vigara
 * Ross Williams
 * John Cooper
