@@ -11,7 +11,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
       - name: PDK syntax validation
-        run: pdk validate --puppet-version=7 --format=junit:pdk.xml --format=text --parallel
+        run: pdk validate --puppet-version=7 --format=text --parallel
   unit_tests:
     runs-on: ubuntu-latest
     container: puppet/pdk:3.3.0.0
@@ -19,11 +19,12 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
       - name: PDK unit tests
-        run: pdk test unit --puppet-version=7 --format=junit:pdk.xml --format=text --parallel
+        run: pdk test unit --puppet-version=7 --format=junit:pdk7.xml --format=text --parallel
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v5
         with:
-          report_paths: "pdk.xml"
+          report_paths: "pdk7.xml"
           include_passed: true
+        if: ${{ always() }}
 permissions:
   checks: write
