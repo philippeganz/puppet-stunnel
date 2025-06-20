@@ -195,8 +195,8 @@ define stunnel::connection (
   require stunnel
 
   File {
-    owner   => $stunnel::user,
-    group   => $stunnel::group,
+    owner => $stunnel::user,
+    group => $stunnel::group,
   }
 
   case $facts['kernel'] {
@@ -221,7 +221,7 @@ define stunnel::connection (
     $ca_file_ensure = file
   } else {
     file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem":
-      ensure  => absent,
+      ensure => absent,
     }
     $ca_file = undef
     $ca_file_ensure = undef
@@ -244,7 +244,7 @@ define stunnel::connection (
     $cert_file_ensure = file
   } else {
     file { "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem":
-      ensure  => absent,
+      ensure => absent,
     }
     $cert_file = undef
     $cert_file_ensure = undef
@@ -267,7 +267,7 @@ define stunnel::connection (
     $key_file_ensure = file
   } else {
     file { "${stunnel::cert_dir}${path_connector}${stunnel_name}.key":
-      ensure  => absent,
+      ensure => absent,
     }
     $key_file = undef
     $key_file_ensure = undef
