@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [3.1.3] - 2025-07-02
+## [3.1.4] - 2025-07-02
+
+### Changed
+
+* Upgrade PDK to version 3.5.0
+
+## [3.1.3] - 2025-06-20
 
 ### Fixed
 
