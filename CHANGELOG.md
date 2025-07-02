@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [3.1.3] - 2025-07-02
+
+### Fixed
+
+* Remove `redhat-lsb` package on RHEL 9
+
 ## [3.1.2] - 2024-10-30
 
 ### Changed
