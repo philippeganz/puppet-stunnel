@@ -1,0 +1,38 @@
+name: "🐛 Bug Report"
+description: File a bug report for the puppet-stunnel module
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: version
+    attributes:
+      label: Puppet Version
+      description: What version of Puppet are you using? (e.g. Puppet 7.x, 8.x)
+      placeholder: '8.4.0'
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior or the Puppet code that causes the issue.
+      render: puppet
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
