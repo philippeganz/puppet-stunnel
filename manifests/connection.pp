@@ -215,6 +215,8 @@ define stunnel::connection (
     $ca_file = $ca_file_path
     if $ca_file_content {
       $ca_file_ensure = file
+    } else {
+      $ca_file_ensure = undef
     }
   } elsif $ca_file_content {
     $ca_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_CA.pem"
@@ -238,6 +240,8 @@ define stunnel::connection (
     $cert_file = $cert_file_path
     if $cert_file_content {
       $cert_file_ensure = file
+    } else {
+      $cert_file_ensure = undef
     }
   } elsif $cert_file_content {
     $cert_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}_cert.pem"
@@ -261,6 +265,8 @@ define stunnel::connection (
     $key_file = $key_file_path
     if $key_file_content {
       $key_file_ensure = file
+    } else {
+      $key_file_ensure = undef
     }
   } elsif $key_file_content {
     $key_file = "${stunnel::cert_dir}${path_connector}${stunnel_name}.key"
