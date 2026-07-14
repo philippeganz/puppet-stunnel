@@ -23,21 +23,22 @@ jobs:
         with:
           ruby-version: '3.3'
 
-      - name: Install ModuleSync
-        run: gem install modulesync
-
-      - name: Run ModuleSync
+      - name: Install Vox Pupuli Jig
         run: |
-          msync update -f voxpupuli/modulesync_config -m "Update templates via modulesync"
+          curl -sL https://github.com/voxpupuli/jig/releases/latest/download/jig_Linux_x86_64.tar.gz | tar -xz
+          sudo mv jig /usr/local/bin/
+
+      - name: Update from Vox Pupuli Templates
+        run: jig update --force --template-url https://github.com/voxpupuli/pdk-templates
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'chore: update templates via modulesync'
-          title: 'chore: update templates via modulesync'
-          branch: modulesync-updates
+          commit-message: "chore: update templates via vox pupuli"
+          title: "chore: update templates via vox pupuli"
+          branch: template-updates
           body: |
-            This PR automatically applies the latest Vox Pupuli `modulesync_config` templates to modernize the Puppet module infrastructure.
+            This PR automatically applies the latest Vox Pupuli templates using the open-source PDK CLI.
           labels: |
             maintenance
