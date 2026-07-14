@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  modulesync:
+  update-templates:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -25,7 +25,8 @@ jobs:
 
       - name: Install Vox Pupuli Jig
         run: |
-          curl -sL https://github.com/voxpupuli/jig/releases/latest/download/jig_Linux_x86_64.tar.gz | tar -xz
+          URL=$(curl -s https://api.github.com/repos/voxpupuli/jig/releases/latest | jq -r '.assets[] | select(.name | endswith("linux_amd64.tar.gz")).browser_download_url')
+          curl -sL $URL | tar -xz
           sudo mv jig /usr/local/bin/
 
       - name: Update from Vox Pupuli Templates
