@@ -35,21 +35,23 @@ jobs:
         working-directory: modulesync_config
         run: bundle install
 
-      - name: Inject module into fleet config
+      - name: Setup isolated fleet config
         working-directory: modulesync_config
-        run: echo "- puppet-stunnel" >> managed_modules.yml
+        run: |
+          echo "---" > managed_modules.yml
+          echo "- puppet-stunnel" >> managed_modules.yml
 
       - name: Run ModuleSync
         working-directory: modulesync_config
-        run: bundle exec msync update --offline -f puppet-stunnel
+        run: bundle exec msync update --offline --noop -f puppet-stunnel
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: modulesync_config/modules/puppet-stunnel
-          commit-message: "chore: update templates via vox pupuli"
-          title: "chore: update templates via vox pupuli"
+          commit-message: 'Update templates via vox pupuli'
+          title: 'chore: update templates via vox pupuli'
           branch: template-updates
           body: |
             This PR automatically applies the latest Vox Pupuli templates using ModuleSync.
