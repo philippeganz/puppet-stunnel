@@ -2,6 +2,7 @@
 
 [![Puppet 7](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml)
 [![Puppet 8](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml)
+[![codecov](https://codecov.io/gh/philippeganz/puppet-stunnel/graph/badge.svg)](https://codecov.io/gh/philippeganz/puppet-stunnel)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
@@ -42,9 +43,9 @@ Stunnel uses the OpenSSL library for cryptography, so it supports whatever crypt
 
 ### References
 
-* <https://www.stunnel.org/>
-* <http://en.wikipedia.org/wiki/Stunnel>
-* <http://en.wikipedia.org/wiki/Secure_Sockets_Layer>
+- <https://www.stunnel.org/>
+- <http://en.wikipedia.org/wiki/Stunnel>
+- <http://en.wikipedia.org/wiki/Secure_Sockets_Layer>
 
 ## Setup
 
@@ -143,12 +144,12 @@ Please do contribute if you're missing some features or create an issue.
 
 ### Contributors
 
-* Aaron Russo
-* Yann Vigara
-* Ross Williams
-* John Cooper
-* Francois Gouteroux
-* Stephen Hoekstra
-* mjs510
-* Olivier Fontannaud
-* Philippe Ganz
+- Aaron Russo
+- Yann Vigara
+- Ross Williams
+- John Cooper
+- Francois Gouteroux
+- Stephen Hoekstra
+- mjs510
+- Olivier Fontannaud
+- Philippe Ganz
