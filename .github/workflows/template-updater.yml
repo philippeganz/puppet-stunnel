@@ -22,7 +22,7 @@ jobs:
       - name: Checkout our module
         uses: actions/checkout@v7
         with:
-          path: modulesync_config/modules/puppet-stunnel
+          path: modulesync_config/modules/philippeganz/puppet-stunnel
           fetch-depth: 0
 
       - name: Setup Ruby
@@ -43,13 +43,13 @@ jobs:
 
       - name: Run ModuleSync
         working-directory: modulesync_config
-        run: bundle exec msync update --offline --noop -f puppet-stunnel
+        run: bundle exec msync update --offline --noop -n philippeganz -f puppet-stunnel
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: modulesync_config/modules/puppet-stunnel
+          path: modulesync_config/modules/philippeganz/puppet-stunnel
           commit-message: 'Update templates via vox pupuli'
           title: 'chore: update templates via vox pupuli'
           branch: template-updates
