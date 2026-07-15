@@ -84,7 +84,6 @@
     "ssl",
     "security"
   ],
-  "pdk-version": "3.5.0",
-  "template-url": "pdk-default#3.5.0",
-  "template-ref": "tags/3.5.0-0-ged6c77a"
+  "pdk-version": "3.4.0",
+  "template-url": "https://github.com/voxpupuli/pdk-templates"
 }
