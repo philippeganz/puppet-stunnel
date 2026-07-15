@@ -13,30 +13,45 @@ jobs:
   update-templates:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Vox Pupuli Configs
         uses: actions/checkout@v7
         with:
+          repository: voxpupuli/modulesync_config
+          path: modulesync_config
+
+      - name: Checkout our module
+        uses: actions/checkout@v7
+        with:
+          path: modulesync_config/modules/puppet-stunnel
           fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3'
+          working-directory: modulesync_config
 
-      - name: Install PDK
-        run: gem install pdk
+      - name: Install ModuleSync
+        working-directory: modulesync_config
+        run: bundle install
 
-      - name: Update from Vox Pupuli Templates
-        run: pdk update --force
+      - name: Inject module into fleet config
+        working-directory: modulesync_config
+        run: echo "- puppet-stunnel" >> managed_modules.yml
+
+      - name: Run ModuleSync
+        working-directory: modulesync_config
+        run: bundle exec msync update --offline -f puppet-stunnel
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'chore: update templates via vox pupuli'
-          title: 'chore: update templates via vox pupuli'
+          path: modulesync_config/modules/puppet-stunnel
+          commit-message: "chore: update templates via vox pupuli"
+          title: "chore: update templates via vox pupuli"
           branch: template-updates
           body: |
-            This PR automatically applies the latest Vox Pupuli templates using the open-source PDK CLI.
+            This PR automatically applies the latest Vox Pupuli templates using ModuleSync.
           labels: |
             maintenance

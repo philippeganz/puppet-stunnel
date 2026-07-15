@@ -83,7 +83,5 @@
     "tls",
     "ssl",
     "security"
-  ],
-  "pdk-version": "3.4.0",
-  "template-url": "https://github.com/voxpupuli/pdk-templates"
+  ]
 }
