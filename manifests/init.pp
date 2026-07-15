@@ -55,7 +55,7 @@ class stunnel (
   Optional[Stdlib::Absolutepath] $cert_dir            = undef,
   Optional[Stdlib::Absolutepath] $config_dir          = undef,
   Optional[Stdlib::Absolutepath] $log_dir             = undef,
-  Optional[Array]                $packages            = undef,
+  Optional[Array[String[1]]]     $packages            = undef,
   Optional[Enum[
     'present',
     'latest'
