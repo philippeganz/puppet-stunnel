@@ -57,8 +57,8 @@ class stunnel (
   Optional[Stdlib::Absolutepath] $log_dir             = undef,
   Optional[Array]                $packages            = undef,
   Optional[Enum[
-      'present',
-      'latest'
+    'present',
+    'latest'
   ]]                             $packages_ensure     = undef,
   Optional[String]               $packages_provider   = undef,
   Optional[Stdlib::Absolutepath] $pid_dir             = undef,

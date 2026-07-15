@@ -156,19 +156,19 @@ define stunnel::connection (
   Boolean                        $manage_service    = true,
   Optional[Boolean]              $active            = undef,
   Optional[Variant[
-      Boolean,
-      Enum['mask']
+    Boolean,
+    Enum['mask']
   ]]                             $enable            = undef,
   Optional[Enum['yes','no']]     $client            = undef,
   Optional[Variant[
-      String,
-      Integer[0]
+    String,
+    Integer[0]
   ]]                             $accept            = undef,
   Optional[String]               $protocol          = undef,
   Optional[String]               $protocol_host     = undef,
   Optional[Variant[
-      String,
-      Array[String]
+    String,
+    Array[String]
   ]]                             $connect           = undef,
   Optional[Enum['rr','prio']]    $failover          = undef,
   Optional[String]               $ca_file_content   = undef,
@@ -181,15 +181,15 @@ define stunnel::connection (
   Optional[Array[String]]        $openssl_options   = undef,
   Optional[Array[String]]        $socket_options    = undef,
   Optional[Hash[
-      String,
-      Data
+    String,
+    Data
   ]]                             $service_options   = undef,
   Optional[Integer[0]]           $timeoutidle       = undef,
   Optional[Integer[0,7]]         $debug_level       = undef,
   Optional[Stdlib::Absolutepath] $log_file          = undef,
   Optional[Hash[
-      String,
-      Data
+    String,
+    Data
   ]]                             $global_options    = undef,
 ) {
   require stunnel
@@ -292,24 +292,24 @@ define stunnel::connection (
     ensure  => $ensure,
     mode    => '0664',
     content => epp('stunnel/conf.epp', {
-        stunnel_name    => $stunnel_name,
-        client          => $client,
-        accept          => $accept,
-        protocol        => $protocol,
-        protocol_host   => $protocol_host,
-        connect         => $connect,
-        ca_file         => $ca_file,
-        ca_dir          => $ca_dir_path,
-        cert_file       => $cert_file,
-        key_file        => $key_file,
-        failover        => $failover,
-        openssl_options => $openssl_options,
-        socket_options  => $socket_options,
-        timeoutidle     => $timeoutidle,
-        service_options => $service_options,
-        debug_level     => $debug_level,
-        log_file        => $log_file,
-        global_options  => $global_options,
+      stunnel_name    => $stunnel_name,
+      client          => $client,
+      accept          => $accept,
+      protocol        => $protocol,
+      protocol_host   => $protocol_host,
+      connect         => $connect,
+      ca_file         => $ca_file,
+      ca_dir          => $ca_dir_path,
+      cert_file       => $cert_file,
+      key_file        => $key_file,
+      failover        => $failover,
+      openssl_options => $openssl_options,
+      socket_options  => $socket_options,
+      timeoutidle     => $timeoutidle,
+      service_options => $service_options,
+      debug_level     => $debug_level,
+      log_file        => $log_file,
+      global_options  => $global_options,
     }),
   }
 
