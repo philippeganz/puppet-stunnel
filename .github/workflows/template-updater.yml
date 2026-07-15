@@ -49,6 +49,10 @@ jobs:
         working-directory: modulesync_config/modules/philippeganz/puppet-stunnel
         run: git checkout main
 
+      - name: Regenerate REFERENCE.md
+        working-directory: modulesync_config/modules/philippeganz/puppet-stunnel
+        run: bundle exec rake strings:generate:reference
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
