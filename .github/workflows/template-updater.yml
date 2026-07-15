@@ -45,14 +45,18 @@ jobs:
         working-directory: modulesync_config
         run: bundle exec msync update --offline --noop -n philippeganz -f puppet-stunnel
 
+      - name: Switch back to main branch
+        working-directory: modulesync_config/modules/philippeganz/puppet-stunnel
+        run: git checkout main
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: modulesync_config/modules/philippeganz/puppet-stunnel
           commit-message: 'Update templates via vox pupuli'
-          title: 'chore: update templates via vox pupuli'
-          branch: template-updates
+          title: 'Modulesync: update templates via Vox Pupuli'
+          branch: modulesync
           body: |
             This PR automatically applies the latest Vox Pupuli templates using ModuleSync.
           labels: |
