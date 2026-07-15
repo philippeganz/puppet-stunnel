@@ -100,8 +100,8 @@ Data type:
 
 ```puppet
 Optional[Enum[
-      'present',
-      'latest'
+    'present',
+    'latest'
   ]]
 ```
 
@@ -177,56 +177,31 @@ stunnel::connection {'my_tunnel':
 
 The following parameters are available in the `stunnel::connection` defined type:
 
-- [Reference](#reference)
-  - [Table of Contents](#table-of-contents)
-    - [Classes](#classes)
-    - [Defined types](#defined-types)
-  - [Classes](#classes-1)
-    - [`stunnel`](#stunnel)
-      - [Examples](#examples)
-        - [Basic usage](#basic-usage)
-      - [Parameters](#parameters)
-        - [`bin_name`](#bin_name)
-        - [`bin_path`](#bin_path)
-        - [`cert_dir`](#cert_dir)
-        - [`config_dir`](#config_dir)
-        - [`log_dir`](#log_dir)
-        - [`packages`](#packages)
-        - [`packages_ensure`](#packages_ensure)
-        - [`packages_provider`](#packages_provider)
-        - [`pid_dir`](#pid_dir)
-        - [`user`](#user)
-        - [`group`](#group)
-  - [Defined types](#defined-types-1)
-    - [`stunnel::connection`](#stunnelconnection)
-      - [Examples](#examples-1)
-        - [Basic usage](#basic-usage-1)
-      - [Parameters](#parameters-1)
-        - [`stunnel_name`](#stunnel_name)
-        - [`ensure`](#ensure)
-        - [`manage_service`](#manage_service)
-        - [`active`](#active)
-        - [`enable`](#enable)
-        - [`client`](#client)
-        - [`accept`](#accept)
-        - [`protocol`](#protocol)
-        - [`protocol_host`](#protocol_host)
-        - [`connect`](#connect)
-        - [`failover`](#failover)
-        - [`ca_file_path`](#ca_file_path)
-        - [`ca_file_content`](#ca_file_content)
-        - [`ca_dir_path`](#ca_dir_path)
-        - [`cert_file_path`](#cert_file_path)
-        - [`cert_file_content`](#cert_file_content)
-        - [`key_file_path`](#key_file_path)
-        - [`key_file_content`](#key_file_content)
-        - [`timeoutidle`](#timeoutidle)
-        - [`openssl_options`](#openssl_options)
-        - [`socket_options`](#socket_options)
-        - [`service_options`](#service_options)
-        - [`debug_level`](#debug_level)
-        - [`log_file`](#log_file)
-        - [`global_options`](#global_options)
+* [`stunnel_name`](#-stunnel--connection--stunnel_name)
+* [`ensure`](#-stunnel--connection--ensure)
+* [`manage_service`](#-stunnel--connection--manage_service)
+* [`active`](#-stunnel--connection--active)
+* [`enable`](#-stunnel--connection--enable)
+* [`client`](#-stunnel--connection--client)
+* [`accept`](#-stunnel--connection--accept)
+* [`protocol`](#-stunnel--connection--protocol)
+* [`protocol_host`](#-stunnel--connection--protocol_host)
+* [`connect`](#-stunnel--connection--connect)
+* [`failover`](#-stunnel--connection--failover)
+* [`ca_file_path`](#-stunnel--connection--ca_file_path)
+* [`ca_file_content`](#-stunnel--connection--ca_file_content)
+* [`ca_dir_path`](#-stunnel--connection--ca_dir_path)
+* [`cert_file_path`](#-stunnel--connection--cert_file_path)
+* [`cert_file_content`](#-stunnel--connection--cert_file_content)
+* [`key_file_path`](#-stunnel--connection--key_file_path)
+* [`key_file_content`](#-stunnel--connection--key_file_content)
+* [`timeoutidle`](#-stunnel--connection--timeoutidle)
+* [`openssl_options`](#-stunnel--connection--openssl_options)
+* [`socket_options`](#-stunnel--connection--socket_options)
+* [`service_options`](#-stunnel--connection--service_options)
+* [`debug_level`](#-stunnel--connection--debug_level)
+* [`log_file`](#-stunnel--connection--log_file)
+* [`global_options`](#-stunnel--connection--global_options)
 
 ##### <a name="-stunnel--connection--stunnel_name"></a>`stunnel_name`
 
@@ -266,8 +241,8 @@ Data type:
 
 ```puppet
 Optional[Variant[
-      Boolean,
-      Enum['mask']
+    Boolean,
+    Enum['mask']
   ]]
 ```
 
@@ -289,8 +264,8 @@ Data type:
 
 ```puppet
 Optional[Variant[
-      String,
-      Integer[0]
+    String,
+    Integer[0]
   ]]
 ```
 
@@ -328,8 +303,8 @@ Data type:
 
 ```puppet
 Optional[Variant[
-      String,
-      Array[String]
+    String,
+    Array[String]
   ]]
 ```
 
@@ -462,8 +437,8 @@ Data type:
 
 ```puppet
 Optional[Hash[
-      String,
-      Data
+    String,
+    Data
   ]]
 ```
 
@@ -499,8 +474,8 @@ Data type:
 
 ```puppet
 Optional[Hash[
-      String,
-      Data
+    String,
+    Data
   ]]
 ```
 
