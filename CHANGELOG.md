@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [3.2.1] - 2026-07-15
+
+### Changed
+
+* Update documentation
+
 ## [3.2.0] - 2026-07-15
 
 ### Added
@@ -27,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 * Fix invalid EPP template tag opener typo (`<-%` -> `<%-`) inside `$global_options` evaluation block
 * Fix RSpec and Rubocop code formatting/style errors to pass Vox Pupuli CI
+* Fix 'Unknown variable' error when `strict_variables` is enabled (thanks to @lbausch)
 
 ## [3.1.4] - 2025-07-02
 
