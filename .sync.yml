@@ -26,6 +26,8 @@
   unmanaged: true
 '.github/release.yml':
   unmanaged: true
+'.github/ISSUE_TEMPLATE.md':
+  unmanaged: true
 '.github/PULL_REQUEST_TEMPLATE.md':
   unmanaged: true
 'SECURITY.md':
