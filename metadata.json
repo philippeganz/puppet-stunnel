@@ -33,7 +33,6 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -41,16 +40,14 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18",
-        "20",
         "22",
-        "24"
+        "24",
+        "26"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "10",
         "11",
         "12"
       ]
@@ -58,7 +55,6 @@
     {
       "operatingsystem": "Suse",
       "operatingsystemrelease": [
-        "12",
         "15"
       ]
     },
@@ -67,7 +63,8 @@
       "operatingsystemrelease": [
         "2016",
         "2019",
-        "2022"
+        "2022",
+        "2025"
       ]
     }
   ],
