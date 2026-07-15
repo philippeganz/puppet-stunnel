@@ -10,18 +10,20 @@ describe 'stunnel::connection' do
 
       context 'empty parameters with title puppetlabs_server' do
         it { is_expected.to compile.with_all_deps }
+
         it { is_expected.to contain_class('stunnel') }
+
         case os_facts[:kernel]
         when 'Linux'
           it {
             is_expected.to contain_file('/etc/stunnel/puppetlabs_server.conf')
-              .with({ owner: 'root', group: 'root', mode: '0664', })
+              .with({ owner: 'root', group: 'root', mode: '0664' })
               .with_content(%r{\[puppetlabs_server\]})
           }
         when 'windows'
           it {
             is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config\\puppetlabs_server.conf')
-              .with({ owner: 'Administrators', group: nil, mode: '0664', })
+              .with({ owner: 'Administrators', group: nil, mode: '0664' })
               .with_content(%r{\[puppetlabs_server\]})
           }
         end
@@ -48,7 +50,7 @@ describe 'stunnel::connection' do
         when 'Linux'
           it do
             is_expected.to contain_file('/etc/stunnel/puppetlabs_server.conf')
-              .with({ owner: 'root', group: 'root', mode: '0664', })
+              .with({ owner: 'root', group: 'root', mode: '0664' })
               .with_content(%r{; Stunnel config file for puppetlabs_server})
               .with_content(%r{debug = 7})
               .with_content(%r{service = puppetlabs_server})
@@ -61,20 +63,25 @@ describe 'stunnel::connection' do
               .with_content(%r{cert = /etc/stunnel/certs/puppetlabs_server_cert.pem})
               .with_content(%r{key = /etc/stunnel/certs/puppetlabs_server.key})
               .with_content(%r{TIMEOUTidle = 86400})
+
             is_expected.to contain_service('stunnel-puppetlabs_server.service')
               .with({ ensure: true, enable: true })
+
             is_expected.to contain_systemd__manage_unit('stunnel-puppetlabs_server.service')
+
             is_expected.to contain_file('/etc/stunnel/certs/puppetlabs_server_CA.pem')
-              .with({ owner: 'root', group: 'root', mode: '0640', })
+              .with({ owner: 'root', group: 'root', mode: '0640' })
+
             is_expected.to contain_file('/etc/stunnel/certs/puppetlabs_server_cert.pem')
-              .with({ owner: 'root', group: 'root', mode: '0640', })
+              .with({ owner: 'root', group: 'root', mode: '0640' })
+
             is_expected.to contain_file('/etc/stunnel/certs/puppetlabs_server.key')
-              .with({ owner: 'root', group: 'root', mode: '0600', })
+              .with({ owner: 'root', group: 'root', mode: '0600' })
           end
         when 'windows'
           it do
             is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config\\puppetlabs_server.conf')
-              .with({ owner: 'Administrators', group: nil, mode: '0664', })
+              .with({ owner: 'Administrators', group: nil, mode: '0664' })
               .with_content(%r{; Stunnel config file for puppetlabs_server})
               .with_content(%r{debug = 7})
               .with_content(%r{\[puppetlabs_server\]})
@@ -85,15 +92,20 @@ describe 'stunnel::connection' do
               .with_content(%r{cert = C:\\Program Files \(x86\)\\stunnel\\certs\\puppetlabs_server_cert.pem})
               .with_content(%r{key = C:\\Program Files \(x86\)\\stunnel\\certs\\puppetlabs_server.key})
               .with_content(%r{TIMEOUTidle = 86400})
+
             is_expected.to contain_service('stunnel-puppetlabs_server')
               .with({ ensure: true, enable: true })
+
             is_expected.to contain_exec('Create service stunnel-puppetlabs_server')
-            is_expected.to contain_file("C:\\Program Files \(x86\)\\stunnel\\certs\\puppetlabs_server_CA.pem")
-              .with({ owner: 'Administrators', group: nil, mode: '0640', })
-            is_expected.to contain_file("C:\\Program Files \(x86\)\\stunnel\\certs\\puppetlabs_server_cert.pem")
-              .with({ owner: 'Administrators', group: nil, mode: '0640', })
-            is_expected.to contain_file("C:\\Program Files \(x86\)\\stunnel\\certs\\puppetlabs_server.key")
-              .with({ owner: 'Administrators', group: nil, mode: '0600', })
+
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server_CA.pem')
+              .with({ owner: 'Administrators', group: nil, mode: '0640' })
+
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server_cert.pem')
+              .with({ owner: 'Administrators', group: nil, mode: '0640' })
+
+            is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server.key')
+              .with({ owner: 'Administrators', group: nil, mode: '0600' })
           end
         end
       end
