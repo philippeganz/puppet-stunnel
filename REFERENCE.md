@@ -88,7 +88,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--packages"></a>`packages`
 
-Data type: `Optional[Array]`
+Data type: `Optional[Array[String[1]]]`
 
 List of packages to install.
 
