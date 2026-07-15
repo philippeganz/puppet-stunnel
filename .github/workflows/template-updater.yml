@@ -21,16 +21,13 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3'
 
-      - name: Install Vox Pupuli Jig
-        run: |
-          URL=$(curl -s https://api.github.com/repos/voxpupuli/jig/releases/latest | jq -r '.assets[] | select(.name | endswith("linux_amd64.tar.gz")).browser_download_url')
-          curl -sL $URL | tar -xz
-          sudo mv jig /usr/local/bin/
+      - name: Install PDK
+        run: gem install pdk
 
       - name: Update from Vox Pupuli Templates
-        run: jig update --force --template-url https://github.com/voxpupuli/pdk-templates
+        run: pdk update --force --template-url https://github.com/voxpupuli/pdk-templates
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
