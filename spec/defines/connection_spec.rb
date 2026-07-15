@@ -47,6 +47,7 @@ describe 'stunnel::connection' do
         end
 
         it { is_expected.to compile.with_all_deps }
+
         case os_facts[:kernel]
         when 'Linux'
           it do

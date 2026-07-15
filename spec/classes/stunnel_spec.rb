@@ -54,6 +54,7 @@ describe 'stunnel' do
             is_expected.to contain_file('/etc/stunnel')
               .with({ owner: 'root', group: 'root', mode: '0775' })
           }
+
           if os_facts[:os]['family'] == 'Debian'
             it {
               is_expected.to contain_file('/var/log/stunnel4')

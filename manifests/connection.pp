@@ -1,7 +1,7 @@
-# 
-# @summary 
+#
+# @summary
 #   Establishes a new stunnel connection.
-# 
+#
 # @param stunnel_name
 #   Name of the stunnel connection.
 #
@@ -10,37 +10,37 @@
 #
 # @param manage_service
 #   Wheather or not a service should be created for this connection.
-# 
+#
 # @param active
 #   Weather the service should be running or not. Needs manage_service to be true.
-# 
+#
 # @param enable
 #   Weather the service should be set to run at boot. Needs manage_service to be true.
-# 
+#
 # @param client
 #   Client mode (remote service uses TLS).
-# 
+#
 # @param accept
 #   Accept connections on specified address.
 #   If no host specified, defaults to all IPv4 addresses for the local host.
 #   To listen on all IPv6 addresses use: :::PORT
-# 
+#
 # @param protocol
 #   Application protocol to negotiate TLS.
-#   This option enables initial, protocol-specific negotiation of the TLS encryption. 
+#   This option enables initial, protocol-specific negotiation of the TLS encryption.
 #   The protocol option should not be used with TLS encryption on a separate port.
 #   See official stunnel documentation for supported protocol.
-# 
+#
 # @param protocol_host
 #   Host address for the protocol negotiations.
-#   For the 'connect' protocol negotiations, protocolHost specifies HOST:PORT of the final TLS server to be connected to by the proxy. 
+#   For the 'connect' protocol negotiations, protocolHost specifies HOST:PORT of the final TLS server to be connected to by the proxy.
 #   The proxy server directly connected by stunnel must be specified with the connect option.
 #   For the 'smtp' protocol negotiations, protocolHost controls the client SMTP HELO/EHLO value.
-# 
+#
 # @param connect
 #   Connect to a remote address.
 #   If no host is specified, the host defaults to localhost.
-#   Multiple connect options are allowed in a single service section. If host resolves to multiple addresses and/or if multiple connect 
+#   Multiple connect options are allowed in a single service section. If host resolves to multiple addresses and/or if multiple connect
 #   options are specified, then the remote address is chosen using a round-robin algorithm.
 #
 # @param failover
@@ -48,77 +48,77 @@
 #   rr    round robin - fair load distribution
 #   prio  priority - use the order specified in config file
 #   default: prio
-# 
+#
 # @param ca_file_path
 #   Load trusted CA certificates from a file.
 #   The loaded CA certificates will be used with the verifyChain and verifyPeer options.
-# 
+#
 # @param ca_file_content
 #   If specified, will populate the CA file @ca_file_path. If this path is not specified, it will populate a default CA file
 #   in cert_dir/stunnel_name_CA.pem
-#   
+#
 # @param ca_dir_path
 #   Load trusted CA certificates from a directory.
-#   The loaded CA certificates will be used with the verifyChain and verifyPeer options. Note that the certificates in this directory 
+#   The loaded CA certificates will be used with the verifyChain and verifyPeer options. Note that the certificates in this directory
 #   should be named XXXXXXXX.0 where XXXXXXXX is the hash value of the DER encoded subject of the cert.
-#   The hash algorithm has been changed in OpenSSL 1.0.0. It is required to c_rehash the directory on upgrade from OpenSSL 0.x.x to 
+#   The hash algorithm has been changed in OpenSSL 1.0.0. It is required to c_rehash the directory on upgrade from OpenSSL 0.x.x to
 #   OpenSSL 1.x.x or later.
 #   CApath path is relative to the chroot directory if specified.
-# 
+#
 # @param cert_file_path
 #   Certificate chain file name.
-#   The parameter specifies the file containing certificates used by stunnel to authenticate itself against the remote client or server. 
-#   The file should contain the whole certificate chain starting from the actual server/client certificate, and ending with the 
+#   The parameter specifies the file containing certificates used by stunnel to authenticate itself against the remote client or server.
+#   The file should contain the whole certificate chain starting from the actual server/client certificate, and ending with the
 #   self-signed root CA certificate. The file must be either in PEM or P12 format.
 #   A certificate chain is required in server mode, and optional in client mode.
 #   This parameter is also used as the certificate identifier when a hardware engine is enabled.
-# 
+#
 # @param cert_file_content
 #   If specified, will populate the cert file @cert_file_path. If this path is not specified, it will populate a default cert file
 #   in cert_dir/stunnel_name_cert.pem
 #
 # @param key_file_path
 #   Private key for the certificate specified with cert option.
-#   A private key is needed to authenticate the certificate owner. Since this file should be kept secret it should only be readable by 
+#   A private key is needed to authenticate the certificate owner. Since this file should be kept secret it should only be readable by
 #   its owner. On Unix systems you can use the following command:
 #   chmod 600 keyfile
 #   This parameter is also used as the private key identifier when a hardware engine is enabled.
 #   default: the value of the cert option
-# 
+#
 # @param key_file_content
 #   If specified, will populate the key file @key_file_path. If this path is not specified, it will populate a default key file
 #   in cert_dir/stunnel_name.key
-# 
+#
 # @param timeoutidle
 #   Time to keep an idle connection.
-# 
+#
 # @param openssl_options
 #   OpenSSL library options.
-#   The parameter is the OpenSSL option name as described in the SSL_CTX_set_options(3ssl) manual, but without SSL_OP_ prefix. 
+#   The parameter is the OpenSSL option name as described in the SSL_CTX_set_options(3ssl) manual, but without SSL_OP_ prefix.
 #   stunnel -options lists the options found to be allowed in the current combination of stunnel and the OpenSSL library used to build it.
 #   Several option lines can be used to specify multiple options. An option name can be prepended with a dash ("-") to disable the option.
-#   Use sslVersionMax or sslVersionMin option instead of disabling specific TLS protocol versions when compiled with OpenSSL 1.1.0 or 
+#   Use sslVersionMax or sslVersionMin option instead of disabling specific TLS protocol versions when compiled with OpenSSL 1.1.0 or
 #   later.
 #
 # @param socket_options
 #   Set an option on the accept/local/remote socket.
 #   The values for the linger option are l_onof:l_linger. The values for the time are tv_sec:tv_usec.
-# 
+#
 # @param service_options
 #   Any supported service option currently not available in this define.
-# 
+#
 # @param debug_level
 #   Debugging level.
-#   Level is a one of the syslog level names or numbers emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), 
+#   Level is a one of the syslog level names or numbers emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6),
 #   or debug (7). All logs for the specified level and all levels numerically less than it will be shown. The default is notice (5).
-#   While the debug = debug or debug = 7 level generates the most verbose output, it is only intended to be used by stunnel developers. 
-#   Please only use this value if you are a developer, or you intend to send your logs to our technical support. Otherwise, the generated 
+#   While the debug = debug or debug = 7 level generates the most verbose output, it is only intended to be used by stunnel developers.
+#   Please only use this value if you are a developer, or you intend to send your logs to our technical support. Otherwise, the generated
 #   logs will be confusing.
-# 
+#
 # @param log_file
 #   Append log messages to a file.
 #   /dev/stdout device can be used to send log messages to the standard output (for example to log them with daemontools splogger).
-# 
+#
 # @param global_options
 #   Any supported global option currently not available in this define.
 #
@@ -137,7 +137,7 @@
 #     log_file      => "${stunnel::log_dir}/my_tunnel.log",
 #   }
 #
-# @author 
+# @author
 #   Aaron Russo
 #   John Cooper
 #   Stephen Hoekstra
@@ -149,7 +149,7 @@
 # @api public
 #
 # @since 0.0.0
-# 
+#
 define stunnel::connection (
   String                         $stunnel_name      = $name,
   Enum['present','absent']       $ensure            = 'present',
