@@ -20,8 +20,10 @@ describe 'stunnel' do
           it { is_expected.to contain_package('stunnel') }
 
           it { is_expected.to contain_package('redhat-lsb') } if os_facts[:os]['release']['major'] != '9'
+
         when 'Suse'
           it { is_expected.to contain_package('stunnel') }
+
         when 'windows'
           it { is_expected.to contain_package('stunnel').with({ provider: 'chocolatey' }) }
 

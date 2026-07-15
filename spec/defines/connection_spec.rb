@@ -20,6 +20,7 @@ describe 'stunnel::connection' do
               .with({ owner: 'root', group: 'root', mode: '0664' })
               .with_content(%r{\[puppetlabs_server\]})
           }
+
         when 'windows'
           it {
             is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config\\puppetlabs_server.conf')
