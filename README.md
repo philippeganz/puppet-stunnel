@@ -141,12 +141,13 @@ Please do contribute if you're missing some features or create an issue.
 
 ### Contributors
 
-- Aaron Russo
-- Yann Vigara
-- Ross Williams
-- John Cooper
-- Francois Gouteroux
-- Stephen Hoekstra
-- mjs510
-- Olivier Fontannaud
-- Philippe Ganz
+- [Aaron Russo](https://github.com/arusso)
+- [Yann Vigara](https://github.com/yannvigara)
+- [Ross Williams](https://github.com/ross-williams)
+- [John Cooper](https://github.com/choffee)
+- [Francois Gouteroux](https://github.com/fgouteroux)
+- [Stephen Hoekstra](https://github.com/shoekstra)
+- [Max Spicer](https://github.com/mjs510)
+- [Olivier Fontannaud](https://github.com/albustax)
+- [Philippe Ganz](https://github.com/philippeganz)
+- [Lorenz Bausch](https://github.com/lbausch)
