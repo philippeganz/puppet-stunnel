@@ -3,8 +3,8 @@
 ---
 fixtures:
   forge_modules:
-    chocolatey: "puppetlabs/chocolatey"
-    powershell: "puppetlabs/powershell"
-    pwshlib: "puppetlabs/pwshlib"
-    stdlib: "puppetlabs/stdlib"
-    systemd: "puppet/systemd"
+    chocolatey: 'puppetlabs/chocolatey'
+    powershell: 'puppetlabs/powershell'
+    pwshlib: 'puppetlabs/pwshlib'
+    stdlib: 'puppetlabs/stdlib'
+    systemd: 'puppet/systemd'
