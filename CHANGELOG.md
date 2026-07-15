@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
+The format is based on [Keep a Changelog](https://keepachangelog.com),
+and this project adheres to [Semantic Versioning](https://semver.org).
+
+## [3.2.0] - 2026-07-15
+
+### Added
+
+* Add support for Windows Server 2025
+* Add support for Ubuntu 26.04
+
+### Changed
+
+* Migrate module management from PDK to Vox Pupuli templates
+* Tighten `$packages` parameter data type inside `stunnel` class
+  to `Optional[Array[String[1]]]`
+
+### Removed
+
+* Drop support for Puppet 7 and Ruby 2.7
+* Drop support for EOL operating systems (Debian 10, Ubuntu 18.04, Ubuntu 20.04, and Suse 12)
+
+### Fixed
+
+* Fix invalid EPP template tag opener typo (`<-%` -> `<%-`) inside `$global_options` evaluation block
+* Fix RSpec and Rubocop code formatting/style errors to pass Vox Pupuli CI
 
 ## [3.1.4] - 2025-07-02
 
