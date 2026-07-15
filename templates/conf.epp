@@ -43,9 +43,9 @@ foreground = yes
 <%- } -%>
 
 <%- if $global_options { -%>
-  <-% $global_options.each |$key, $value| { -%>
+  <%- $global_options.each |$key, $value| { -%>
 <%= $key %> = <%= $value %>
-  <-% } -%>
+  <%- } -%>
 <%- } -%>
 
 [<%= $stunnel_name %>]
