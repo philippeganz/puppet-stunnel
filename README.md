@@ -1,8 +1,5 @@
 # stunnel
 
-[![Puppet 7](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet7.yml)
-[![Puppet 8](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml/badge.svg)](https://github.com/philippeganz/puppet-stunnel/actions/workflows/puppet8.yml)
-[![codecov](https://codecov.io/gh/philippeganz/puppet-stunnel/graph/badge.svg)](https://codecov.io/gh/philippeganz/puppet-stunnel)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
