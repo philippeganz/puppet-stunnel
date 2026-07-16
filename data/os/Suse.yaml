@@ -1,3 +1,4 @@
 ---
+# === Package Management ===
 stunnel::packages:
   - stunnel

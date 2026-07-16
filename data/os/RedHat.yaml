@@ -1,4 +1,4 @@
 ---
+# === Package Management ===
 stunnel::packages:
   - stunnel
-  - redhat-lsb

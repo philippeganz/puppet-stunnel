@@ -1,6 +1,10 @@
 ---
-stunnel::bin_name: stunnel4
-stunnel::log_dir: /var/log/stunnel4
+# === Package Management ===
 stunnel::packages:
   - stunnel4
-  - lsb-base
+
+# === Core Binaries & Service Identity ===
+stunnel::bin_name: stunnel4
+
+# === Paths & Directories ===
+stunnel::log_dir: /var/log/stunnel4
