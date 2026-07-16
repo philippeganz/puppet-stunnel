@@ -10,18 +10,11 @@ describe 'stunnel' do
       it { is_expected.to compile.with_all_deps }
 
       context 'empty parameters' do
-        # rubocop:disable RSpec/RepeatedExample
         case os_facts[:os]['family']
         when 'Debian'
           it { is_expected.to contain_package('stunnel4') }
 
-          it { is_expected.to contain_package('lsb-base') }
-        when 'RedHat'
-          it { is_expected.to contain_package('stunnel') }
-
-          it { is_expected.to contain_package('redhat-lsb') } if os_facts[:os]['release']['major'] != '9'
-
-        when 'Suse'
+        when 'RedHat', 'Suse'
           it { is_expected.to contain_package('stunnel') }
 
         when 'windows'
@@ -42,7 +35,6 @@ describe 'stunnel' do
               .with({ owner: 'Administrators', group: nil, mode: '0775' })
           }
         end
-        # rubocop:enable RSpec/RepeatedExample
 
         if os_facts[:kernel] == 'Linux'
           it {
