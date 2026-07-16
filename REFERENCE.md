@@ -45,6 +45,8 @@ The following parameters are available in the `stunnel` class:
 * [`pid_dir`](#-stunnel--pid_dir)
 * [`user`](#-stunnel--user)
 * [`group`](#-stunnel--group)
+* [`chroot_enable`](#-stunnel--chroot_enable)
+* [`chroot_dir`](#-stunnel--chroot_dir)
 
 ##### <a name="-stunnel--bin_name"></a>`bin_name`
 
@@ -142,6 +144,22 @@ Group that will own the files and run the service.
 
 Default value: `undef`
 
+##### <a name="-stunnel--chroot_enable"></a>`chroot_enable`
+
+Data type: `Optional[Boolean]`
+
+Enable chroot jail for the stunnel process (Linux only).
+
+Default value: `undef`
+
+##### <a name="-stunnel--chroot_dir"></a>`chroot_dir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to the directory to use for the chroot jail.
+
+Default value: `undef`
+
 ## Defined types
 
 ### <a name="stunnel--connection"></a>`stunnel::connection`
@@ -182,6 +200,8 @@ The following parameters are available in the `stunnel::connection` defined type
 * [`manage_service`](#-stunnel--connection--manage_service)
 * [`active`](#-stunnel--connection--active)
 * [`enable`](#-stunnel--connection--enable)
+* [`fips`](#-stunnel--connection--fips)
+* [`secure_defaults`](#-stunnel--connection--secure_defaults)
 * [`client`](#-stunnel--connection--client)
 * [`accept`](#-stunnel--connection--accept)
 * [`protocol`](#-stunnel--connection--protocol)
@@ -249,6 +269,22 @@ Optional[Variant[
 Weather the service should be set to run at boot. Needs manage_service to be true.
 
 Default value: `undef`
+
+##### <a name="-stunnel--connection--fips"></a>`fips`
+
+Data type: `Boolean`
+
+Enable FIPS 140-2 mode for strict cryptography compliance.
+
+Default value: `false`
+
+##### <a name="-stunnel--connection--secure_defaults"></a>`secure_defaults`
+
+Data type: `Boolean`
+
+Enable strict cryptography defaults (e.g., TLSv1.3+ min).
+
+Default value: `true`
 
 ##### <a name="-stunnel--connection--client"></a>`client`
 
