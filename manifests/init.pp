@@ -37,6 +37,12 @@
 # @param group
 #   Group that will own the files and run the service.
 #
+# @param chroot_enable
+#   Enable chroot jail for the stunnel process (Linux only).
+#
+# @param chroot_dir
+#   Path to the directory to use for the chroot jail.
+#
 # @example Basic usage
 #   include stunnel
 #
@@ -64,17 +70,25 @@ class stunnel (
   Optional[Stdlib::Absolutepath] $pid_dir             = undef,
   Optional[String]               $user                = undef,
   Optional[String]               $group               = undef,
+  Optional[Boolean]              $chroot_enable       = undef,
+  Optional[Stdlib::Absolutepath] $chroot_dir          = undef,
 ) {
   package { $packages:
     ensure   => $packages_ensure,
     provider => $packages_provider,
   }
 
-  $stunnel_dirs = [
+  $_base_dirs = [
     $cert_dir,
     $config_dir,
     $log_dir,
   ]
+
+  $stunnel_dirs = if $chroot_enable and $chroot_dir {
+    $_base_dirs + [$chroot_dir]
+  } else {
+    $_base_dirs
+  }
 
   file { $stunnel_dirs:
     ensure => directory,

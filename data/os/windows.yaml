@@ -1,11 +1,19 @@
 ---
-stunnel::bin_name: stunnel.exe
-stunnel::bin_path: "C:\\Program Files (x86)\\stunnel\\bin"
-stunnel::cert_dir: "C:\\Program Files (x86)\\stunnel\\certs"
-stunnel::config_dir: "C:\\Program Files (x86)\\stunnel\\config"
-stunnel::log_dir: "C:\\Program Files (x86)\\stunnel\\log"
+# === Package Management ===
 stunnel::packages:
   - stunnel
 stunnel::packages_provider: chocolatey
+
+# === Core Binaries & Service Identity ===
+stunnel::bin_name: stunnel.exe
+stunnel::bin_path: "C:\\Program Files (x86)\\stunnel\\bin"
 stunnel::user: Administrators
 stunnel::group: ~
+
+# === Paths & Directories ===
+stunnel::config_dir: "C:\\Program Files (x86)\\stunnel\\config"
+stunnel::cert_dir: "C:\\Program Files (x86)\\stunnel\\certs"
+stunnel::log_dir: "C:\\Program Files (x86)\\stunnel\\log"
+
+# === Security Hardening ===
+stunnel::chroot_enable: false

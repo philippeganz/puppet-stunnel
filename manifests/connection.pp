@@ -17,6 +17,12 @@
 # @param enable
 #   Weather the service should be set to run at boot. Needs manage_service to be true.
 #
+# @param fips
+#   Enable FIPS 140-2 mode for strict cryptography compliance.
+#
+# @param secure_defaults
+#   Enable strict cryptography defaults (e.g., TLSv1.3+ min).
+#
 # @param client
 #   Client mode (remote service uses TLS).
 #
@@ -154,6 +160,8 @@ define stunnel::connection (
   String                         $stunnel_name      = $name,
   Enum['present','absent']       $ensure            = 'present',
   Boolean                        $manage_service    = true,
+  Boolean                        $fips              = false,
+  Boolean                        $secure_defaults   = true,
   Optional[Boolean]              $active            = undef,
   Optional[Variant[
     Boolean,
@@ -310,6 +318,13 @@ define stunnel::connection (
       debug_level     => $debug_level,
       log_file        => $log_file,
       global_options  => $global_options,
+      fips            => $fips,
+      secure_defaults => $secure_defaults,
+      chroot_enable   => $stunnel::chroot_enable,
+      chroot_dir      => $stunnel::chroot_dir,
+      user            => $stunnel::user,
+      group           => $stunnel::group,
+      pid_dir         => $stunnel::pid_dir,
     }),
   }
 

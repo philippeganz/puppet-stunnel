@@ -57,6 +57,11 @@ describe 'stunnel::connection' do
               .with_content(%r{debug = 7})
               .with_content(%r{service = puppetlabs_server})
               .with_content(%r{foreground = yes})
+              .with_content(%r{sslVersionMin = TLSv1.3})
+              .with_content(%r{chroot = /var/run/stunnel})
+              .with_content(%r{setuid = root})
+              .with_content(%r{setgid = root})
+              .with_content(%r{pid = /run/puppetlabs_server.pid})
               .with_content(%r{\[puppetlabs_server\]})
               .with_content(%r{client = yes})
               .with_content(%r{accept = 30000})
@@ -86,6 +91,7 @@ describe 'stunnel::connection' do
               .with({ owner: 'Administrators', group: nil, mode: '0664' })
               .with_content(%r{; Stunnel config file for puppetlabs_server})
               .with_content(%r{debug = 7})
+              .with_content(%r{sslVersionMin = TLSv1.3})
               .with_content(%r{\[puppetlabs_server\]})
               .with_content(%r{client = yes})
               .with_content(%r{accept = 30000})
@@ -109,6 +115,17 @@ describe 'stunnel::connection' do
             is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server.key')
               .with({ owner: 'Administrators', group: nil, mode: '0600' })
           end
+        end
+      end
+
+      context 'with fips => true' do
+        let(:params) { { 'fips' => true } }
+
+        case os_facts[:kernel]
+        when 'Linux'
+          it { is_expected.to contain_file('/etc/stunnel/puppetlabs_server.conf').with_content(%r{fips = yes}) }
+        when 'windows'
+          it { is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config\\puppetlabs_server.conf').with_content(%r{fips = yes}) }
         end
       end
     end
