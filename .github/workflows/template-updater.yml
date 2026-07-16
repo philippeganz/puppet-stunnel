@@ -1,8 +1,8 @@
 name: TemplateUpdater
 
 on:
-  # schedule:
-  #   - cron: '0 4 * * 1' # Every Monday at 4 AM
+  schedule:
+    - cron: '0 4 * * 1' # Every Monday at 4 AM
   workflow_dispatch:
 
 permissions:
