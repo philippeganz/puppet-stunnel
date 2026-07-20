@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+
+### Added
+
+* Add `puppetlabs/acl` dependency to enforce strict Administrator/SYSTEM ownership of `.key` files on Windows
+* Implement automatic `chroot` jail creation natively across Linux environments
+* Add `fips` hardening toggle for strict cryptography compliance
+
+### Changed
+
+* **BREAKING**: Force `sslVersionMin` to `TLSv1.3` by default across all connections, stripping out legacy cipher suites (opt-out by setting `$secure_defaults` to false)
+
 ## [3.2.1] - 2026-07-15
 
 ### Changed
