@@ -3,6 +3,7 @@
 ---
 fixtures:
   forge_modules:
+    acl: 'puppetlabs/acl'
     chocolatey: 'puppetlabs/chocolatey'
     powershell: 'puppetlabs/powershell'
     pwshlib: 'puppetlabs/pwshlib'

@@ -28,9 +28,17 @@
           String,
           Data
       ]]                             $global_options,
+      Optional[Boolean]              $fips,
+      Optional[Boolean]              $secure_defaults,
+      Optional[Boolean]              $chroot_enable,
+      Optional[Stdlib::Absolutepath] $chroot_dir,
+      Optional[String]               $user,
+      Optional[String]               $group,
+      Optional[Stdlib::Absolutepath] $pid_dir,
 | -%>
 ; Stunnel config file for <%= $stunnel_name %>
 
+; Global Base Options
 <%- if $debug_level { -%>
 debug = <%= $debug_level %>
 <%- } -%>
@@ -42,12 +50,38 @@ service = <%= $stunnel_name %>
 foreground = yes
 <%- } -%>
 
+; Global User-Defined Options
 <%- if $global_options { -%>
   <%- $global_options.each |$key, $value| { -%>
 <%= $key %> = <%= $value %>
   <%- } -%>
 <%- } -%>
 
+; Cryptography Hardening
+<%- if $fips { -%>
+fips = yes
+<%- } -%>
+<%- if $secure_defaults { -%>
+sslVersionMin = TLSv1.3
+<%- } -%>
+
+; OS Hardening (Linux Only)
+<%- if $facts['kernel'] == 'Linux' { -%>
+  <%- if $chroot_enable and $chroot_dir { -%>
+chroot = <%= $chroot_dir %>
+  <%- } -%>
+  <%- if $user { -%>
+setuid = <%= $user %>
+  <%- } -%>
+  <%- if $group { -%>
+setgid = <%= $group %>
+  <%- } -%>
+  <%- if $pid_dir { -%>
+pid = <%= $pid_dir %>/<%= $stunnel_name %>.pid
+  <%- } -%>
+<%- } -%>
+
+; Service Configuration
 [<%= $stunnel_name %>]
 <%- if $client { -%>
   client = <%= $client %>
@@ -71,6 +105,7 @@ foreground = yes
   <%- } -%>
 <%- } -%>
 
+; Certificate Management
 <%- if $ca_file { -%>
   CAfile = <%= $ca_file %>
 <%- } -%>
@@ -84,6 +119,7 @@ foreground = yes
   key = <%= $key_file %>
 <%- } -%>
 
+; Connection Tuning
 <%- if $failover { -%>
   failover = <%= $failover %>
 <%- } -%>
@@ -102,6 +138,7 @@ foreground = yes
   <%- } -%>
 <%- } -%>
 
+; Service User-Defined Options
 <%- if $service_options { -%>
   <%- $service_options.each |$key, $value| { -%>
   <%= $key %> = <%= $value %>

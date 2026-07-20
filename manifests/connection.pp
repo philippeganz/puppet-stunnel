@@ -17,6 +17,12 @@
 # @param enable
 #   Weather the service should be set to run at boot. Needs manage_service to be true.
 #
+# @param fips
+#   Enable FIPS 140-2 mode for strict cryptography compliance.
+#
+# @param secure_defaults
+#   Enable strict cryptography defaults (e.g., TLSv1.3+ min).
+#
 # @param client
 #   Client mode (remote service uses TLS).
 #
@@ -154,6 +160,8 @@ define stunnel::connection (
   String                         $stunnel_name      = $name,
   Enum['present','absent']       $ensure            = 'present',
   Boolean                        $manage_service    = true,
+  Boolean                        $fips              = false,
+  Boolean                        $secure_defaults   = true,
   Optional[Boolean]              $active            = undef,
   Optional[Variant[
     Boolean,
@@ -284,6 +292,21 @@ define stunnel::connection (
       content => $key_file_content,
       mode    => '0600',
     }
+
+    if $facts['kernel'] == 'windows' {
+      acl { $key_file:
+        target                     => $key_file,
+        purge                      => true,
+        permissions                => [
+          { identity => 'Administrators', rights => ['full'] },
+          { identity => 'SYSTEM', rights => ['full'] },
+        ],
+        owner                      => 'Administrators',
+        group                      => 'Administrators',
+        inherit_parent_permissions => false,
+        require                    => File[$key_file],
+      }
+    }
   }
 
   $config_file = "${stunnel::config_dir}${path_connector}${stunnel_name}.conf"
@@ -310,6 +333,13 @@ define stunnel::connection (
       debug_level     => $debug_level,
       log_file        => $log_file,
       global_options  => $global_options,
+      fips            => $fips,
+      secure_defaults => $secure_defaults,
+      chroot_enable   => $stunnel::chroot_enable,
+      chroot_dir      => $stunnel::chroot_dir,
+      user            => $stunnel::user,
+      group           => $stunnel::group,
+      pid_dir         => $stunnel::pid_dir,
     }),
   }
 

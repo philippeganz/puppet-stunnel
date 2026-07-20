@@ -58,6 +58,11 @@ describe 'stunnel' do
                 .with({ owner: 'root', group: 'root', mode: '0775' })
             }
           end
+
+          it {
+            is_expected.to contain_file('/var/run/stunnel')
+              .with({ owner: 'root', group: 'root', mode: '0775' })
+          }
         end
       end
     end
