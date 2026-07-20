@@ -292,6 +292,21 @@ define stunnel::connection (
       content => $key_file_content,
       mode    => '0600',
     }
+
+    if $facts['kernel'] == 'windows' {
+      acl { $key_file:
+        target                     => $key_file,
+        purge                      => true,
+        permissions                => [
+          { identity => 'Administrators', rights => ['full'] },
+          { identity => 'SYSTEM', rights => ['full'] },
+        ],
+        owner                      => 'Administrators',
+        group                      => 'Administrators',
+        inherit_parent_permissions => false,
+        require                    => File[$key_file],
+      }
+    }
   }
 
   $config_file = "${stunnel::config_dir}${path_connector}${stunnel_name}.conf"

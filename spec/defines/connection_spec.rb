@@ -114,6 +114,15 @@ describe 'stunnel::connection' do
 
             is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server.key')
               .with({ owner: 'Administrators', group: nil, mode: '0600' })
+
+            is_expected.to contain_acl('C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server.key')
+              .with({
+                      target: 'C:\\Program Files (x86)\\stunnel\\certs\\puppetlabs_server.key',
+                      purge: true,
+                      owner: 'Administrators',
+                      group: 'Administrators',
+                      inherit_parent_permissions: false,
+                    })
           end
         end
       end
