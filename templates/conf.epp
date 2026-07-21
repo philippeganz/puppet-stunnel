@@ -1,33 +1,21 @@
 <%- | Optional[String]               $stunnel_name,
-      Optional[Enum['yes','no']]     $client,
-      Optional[Variant[
-          String,
-          Integer[0]
-      ]]                             $accept,
+      Optional[Boolean]              $client,
+      Optional[Stunnel::Port]        $accept,
       Optional[String]               $protocol,
       Optional[String]               $protocol_host,
-      Optional[Variant[
-          String,
-          Array[String]
-      ]]                             $connect,
-      Optional[Enum['rr','prio']]    $failover,
+      Optional[Stunnel::Connect]     $connect,
+      Optional[Stunnel::Failover]    $failover,
       Optional[Stdlib::Absolutepath] $ca_file,
       Optional[Stdlib::Absolutepath] $ca_dir,
       Optional[Stdlib::Absolutepath] $cert_file,
       Optional[Stdlib::Absolutepath] $key_file,
       Optional[Array[String]]        $openssl_options,
       Optional[Array[String]]        $socket_options,
-      Optional[Hash[
-          String,
-          Data
-      ]]                             $service_options,
+      Optional[Stunnel::Options]     $service_options,
       Optional[Integer[0]]           $timeoutidle,
       Optional[Integer[0,7]]         $debug_level,
       Optional[Stdlib::Absolutepath] $log_file,
-      Optional[Hash[
-          String,
-          Data
-      ]]                             $global_options,
+      Optional[Stunnel::Options]     $global_options,
       Optional[Boolean]              $fips,
       Optional[Boolean]              $secure_defaults,
       Optional[Boolean]              $chroot_enable,
@@ -83,8 +71,8 @@ pid = <%= $pid_dir %>/<%= $stunnel_name %>.pid
 
 ; Service Configuration
 [<%= $stunnel_name %>]
-<%- if $client { -%>
-  client = <%= $client %>
+<%- if $client != undef { -%>
+  client = <%= String($client, '%y') %>
 <%- } -%>
 <%- if $accept { -%>
   accept = <%= $accept %>

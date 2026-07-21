@@ -13,6 +13,15 @@ Installs the packages and creates essential directories.
 
 * [`stunnel::connection`](#stunnel--connection): Establishes a new stunnel connection.
 
+### Data types
+
+* [`Stunnel::Connect`](#Stunnel--Connect): A custom type for Stunnel connect targets
+* [`Stunnel::Enable`](#Stunnel--Enable): A custom type for systemd service enable states
+* [`Stunnel::Failover`](#Stunnel--Failover): A custom type for Stunnel failover strategy
+* [`Stunnel::Options`](#Stunnel--Options): A custom type for Stunnel global or service options
+* [`Stunnel::PackagesEnsure`](#Stunnel--PackagesEnsure): A custom type for Stunnel package ensure states
+* [`Stunnel::Port`](#Stunnel--Port): A custom type for Stunnel ports or bind addresses
+
 ## Classes
 
 ### <a name="stunnel"></a>`stunnel`
@@ -98,14 +107,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--packages_ensure"></a>`packages_ensure`
 
-Data type:
-
-```puppet
-Optional[Enum[
-    'present',
-    'latest'
-  ]]
-```
+Data type: `Optional[Stunnel::PackagesEnsure]`
 
 If packages should be updated or not.
 
@@ -257,14 +259,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--enable"></a>`enable`
 
-Data type:
-
-```puppet
-Optional[Variant[
-    Boolean,
-    Enum['mask']
-  ]]
-```
+Data type: `Optional[Stunnel::Enable]`
 
 Weather the service should be set to run at boot. Needs manage_service to be true.
 
@@ -288,7 +283,7 @@ Default value: `true`
 
 ##### <a name="-stunnel--connection--client"></a>`client`
 
-Data type: `Optional[Enum['yes','no']]`
+Data type: `Optional[Boolean]`
 
 Client mode (remote service uses TLS).
 
@@ -296,14 +291,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--accept"></a>`accept`
 
-Data type:
-
-```puppet
-Optional[Variant[
-    String,
-    Integer[0]
-  ]]
-```
+Data type: `Optional[Stunnel::Port]`
 
 Accept connections on specified address.
 If no host specified, defaults to all IPv4 addresses for the local host.
@@ -335,14 +323,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--connect"></a>`connect`
 
-Data type:
-
-```puppet
-Optional[Variant[
-    String,
-    Array[String]
-  ]]
-```
+Data type: `Optional[Stunnel::Connect]`
 
 Connect to a remote address.
 If no host is specified, the host defaults to localhost.
@@ -353,7 +334,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--failover"></a>`failover`
 
-Data type: `Optional[Enum['rr','prio']]`
+Data type: `Optional[Stunnel::Failover]`
 
 Failover strategy for multiple "connect" targets.
 rr    round robin - fair load distribution
@@ -469,14 +450,7 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--service_options"></a>`service_options`
 
-Data type:
-
-```puppet
-Optional[Hash[
-    String,
-    Data
-  ]]
-```
+Data type: `Optional[Stunnel::Options]`
 
 Any supported service option currently not available in this define.
 
@@ -506,16 +480,47 @@ Default value: `undef`
 
 ##### <a name="-stunnel--connection--global_options"></a>`global_options`
 
-Data type:
-
-```puppet
-Optional[Hash[
-    String,
-    Data
-  ]]
-```
+Data type: `Optional[Stunnel::Options]`
 
 Any supported global option currently not available in this define.
 
 Default value: `undef`
+
+## Data types
+
+### <a name="Stunnel--Connect"></a>`Stunnel::Connect`
+
+A custom type for Stunnel connect targets
+
+Alias of `Variant[String, Array[String]]`
+
+### <a name="Stunnel--Enable"></a>`Stunnel::Enable`
+
+A custom type for systemd service enable states
+
+Alias of `Variant[Boolean, Enum['mask']]`
+
+### <a name="Stunnel--Failover"></a>`Stunnel::Failover`
+
+A custom type for Stunnel failover strategy
+
+Alias of `Enum['rr', 'prio']`
+
+### <a name="Stunnel--Options"></a>`Stunnel::Options`
+
+A custom type for Stunnel global or service options
+
+Alias of `Hash[String, Data]`
+
+### <a name="Stunnel--PackagesEnsure"></a>`Stunnel::PackagesEnsure`
+
+A custom type for Stunnel package ensure states
+
+Alias of `Enum['present', 'latest']`
+
+### <a name="Stunnel--Port"></a>`Stunnel::Port`
+
+A custom type for Stunnel ports or bind addresses
+
+Alias of `Variant[String, Integer[0]]`
 

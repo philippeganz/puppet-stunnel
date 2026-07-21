@@ -163,22 +163,13 @@ define stunnel::connection (
   Boolean                        $fips              = false,
   Boolean                        $secure_defaults   = true,
   Optional[Boolean]              $active            = undef,
-  Optional[Variant[
-    Boolean,
-    Enum['mask']
-  ]]                             $enable            = undef,
-  Optional[Enum['yes','no']]     $client            = undef,
-  Optional[Variant[
-    String,
-    Integer[0]
-  ]]                             $accept            = undef,
+  Optional[Stunnel::Enable]      $enable            = undef,
+  Optional[Boolean]              $client            = undef,
+  Optional[Stunnel::Port]        $accept            = undef,
   Optional[String]               $protocol          = undef,
   Optional[String]               $protocol_host     = undef,
-  Optional[Variant[
-    String,
-    Array[String]
-  ]]                             $connect           = undef,
-  Optional[Enum['rr','prio']]    $failover          = undef,
+  Optional[Stunnel::Connect]     $connect           = undef,
+  Optional[Stunnel::Failover]    $failover          = undef,
   Optional[String]               $ca_file_content   = undef,
   Optional[Stdlib::Absolutepath] $ca_file_path      = undef,
   Optional[Stdlib::Absolutepath] $ca_dir_path       = undef,
@@ -188,17 +179,11 @@ define stunnel::connection (
   Optional[Stdlib::Absolutepath] $key_file_path     = undef,
   Optional[Array[String]]        $openssl_options   = undef,
   Optional[Array[String]]        $socket_options    = undef,
-  Optional[Hash[
-    String,
-    Data
-  ]]                             $service_options   = undef,
+  Optional[Stunnel::Options]     $service_options   = undef,
   Optional[Integer[0]]           $timeoutidle       = undef,
   Optional[Integer[0,7]]         $debug_level       = undef,
   Optional[Stdlib::Absolutepath] $log_file          = undef,
-  Optional[Hash[
-    String,
-    Data
-  ]]                             $global_options    = undef,
+  Optional[Stunnel::Options]     $global_options    = undef,
 ) {
   require stunnel
 

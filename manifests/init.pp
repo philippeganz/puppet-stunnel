@@ -56,22 +56,19 @@
 # @since 0.0.0
 #
 class stunnel (
-  Optional[String]               $bin_name            = undef,
-  Optional[Stdlib::Absolutepath] $bin_path            = undef,
-  Optional[Stdlib::Absolutepath] $cert_dir            = undef,
-  Optional[Stdlib::Absolutepath] $config_dir          = undef,
-  Optional[Stdlib::Absolutepath] $log_dir             = undef,
-  Optional[Array[String[1]]]     $packages            = undef,
-  Optional[Enum[
-    'present',
-    'latest'
-  ]]                             $packages_ensure     = undef,
-  Optional[String]               $packages_provider   = undef,
-  Optional[Stdlib::Absolutepath] $pid_dir             = undef,
-  Optional[String]               $user                = undef,
-  Optional[String]               $group               = undef,
-  Optional[Boolean]              $chroot_enable       = undef,
-  Optional[Stdlib::Absolutepath] $chroot_dir          = undef,
+  Optional[String]                  $bin_name            = undef,
+  Optional[Stdlib::Absolutepath]    $bin_path            = undef,
+  Optional[Stdlib::Absolutepath]    $cert_dir            = undef,
+  Optional[Stdlib::Absolutepath]    $config_dir          = undef,
+  Optional[Stdlib::Absolutepath]    $log_dir             = undef,
+  Optional[Array[String[1]]]        $packages            = undef,
+  Optional[Stunnel::PackagesEnsure] $packages_ensure     = undef,
+  Optional[String]                  $packages_provider   = undef,
+  Optional[Stdlib::Absolutepath]    $pid_dir             = undef,
+  Optional[String]                  $user                = undef,
+  Optional[String]                  $group               = undef,
+  Optional[Boolean]                 $chroot_enable       = undef,
+  Optional[Stdlib::Absolutepath]    $chroot_dir          = undef,
 ) {
   package { $packages:
     ensure   => $packages_ensure,
