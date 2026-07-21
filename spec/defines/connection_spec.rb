@@ -35,7 +35,7 @@ describe 'stunnel::connection' do
           {
             'enable' => true,
             'active' => true,
-            'client' => 'yes',
+            'client' => true,
             'timeoutidle' => 86_400,
             'accept' => 30_000,
             'connect' => '123.123.123.123:443',

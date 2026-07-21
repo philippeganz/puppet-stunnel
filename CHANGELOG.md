@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 * **BREAKING**: Force `sslVersionMin` to `TLSv1.3` by default across all connections, stripping out legacy cipher suites (opt-out by setting `$secure_defaults` to false)
+* Replace multi-line inline data types with custom domain types (`Stunnel::Options`, `Stunnel::Port`, `Stunnel::Connect`, `Stunnel::Failover`) in `stunnel::connection` and EPP templates
 
 ## [3.2.1] - 2026-07-15
 
