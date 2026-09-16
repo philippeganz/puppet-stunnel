@@ -1,4 +1,5 @@
 <%- | Optional[String]               $stunnel_name,
+      Optional[Boolean]              $foreground,
       Optional[Boolean]              $client,
       Optional[Stunnel::Port]        $accept,
       Optional[String]               $protocol,
@@ -35,7 +36,7 @@ output = <%= $log_file %>
 <%- } -%>
 <%- if $facts['kernel'] == 'Linux' and $stunnel_name { -%>
 service = <%= $stunnel_name %>
-foreground = yes
+foreground = <%= String($foreground, '%y') %>
 <%- } -%>
 
 ; Global User-Defined Options

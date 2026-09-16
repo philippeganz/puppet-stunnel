@@ -23,6 +23,9 @@
 # @param secure_defaults
 #   Enable strict cryptography defaults (e.g., TLSv1.3+ min).
 #
+# @param foreground
+#   Run the service in the foreground
+#
 # @param client
 #   Client mode (remote service uses TLS).
 #
@@ -162,6 +165,7 @@ define stunnel::connection (
   Boolean                        $manage_service    = true,
   Boolean                        $fips              = false,
   Boolean                        $secure_defaults   = true,
+  Boolean                        $foreground        = true,
   Optional[Boolean]              $active            = undef,
   Optional[Stunnel::Enable]      $enable            = undef,
   Optional[Boolean]              $client            = undef,
@@ -301,6 +305,7 @@ define stunnel::connection (
     mode    => '0664',
     content => epp('stunnel/conf.epp', {
       stunnel_name    => $stunnel_name,
+      foreground      => $foreground,
       client          => $client,
       accept          => $accept,
       protocol        => $protocol,
