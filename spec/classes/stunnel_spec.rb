@@ -63,6 +63,31 @@ describe 'stunnel' do
             is_expected.to contain_file('/var/run/stunnel')
               .with({ owner: 'root', group: 'root', mode: '0775' })
           }
+
+          it {
+            is_expected.to contain_file('/var/run/stunnel//run')
+              .with({ ensure: 'directory', owner: 'root', group: 'root', mode: '0755' })
+          }
+        end
+      end
+
+      if os_facts[:kernel] == 'Linux'
+        context 'with manage_selinux => true' do
+          let(:params) { { manage_selinux: true, chroot_enable: true } }
+
+          if os_facts.dig(:os, 'selinux', 'enabled')
+            it { is_expected.to contain_selinux__fcontext('/etc/stunnel/certs(/.*)?').with_seltype('stunnel_etc_t') }
+            it { is_expected.to contain_selinux__fcontext('/etc/stunnel(/.*)?').with_seltype('stunnel_etc_t') }
+
+            if os_facts[:os]['family'] == 'Debian'
+              it { is_expected.to contain_selinux__fcontext('/var/log/stunnel4(/.*)?').with_seltype('stunnel_log_t') }
+            else
+              it { is_expected.to contain_selinux__fcontext('/var/log/stunnel(/.*)?').with_seltype('stunnel_log_t') }
+            end
+            it { is_expected.to contain_selinux__fcontext('/var/run/stunnel(/.*)?').with_seltype('stunnel_var_run_t') }
+          else
+            it { is_expected.not_to contain_selinux__fcontext('/etc/stunnel/certs(/.*)?') }
+          end
         end
       end
     end

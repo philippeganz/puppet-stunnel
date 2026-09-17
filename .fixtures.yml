@@ -9,3 +9,4 @@ fixtures:
     pwshlib: 'puppetlabs/pwshlib'
     stdlib: 'puppetlabs/stdlib'
     systemd: 'puppet/systemd'
+    selinux: 'puppet/selinux'
