@@ -346,8 +346,13 @@ define stunnel::connection (
             'After'         => ['syslog.target', 'network.target'],
           },
           service_entry => {
-            'Type'      => 'exec',
-            'ExecStart' => "${stunnel::bin_path}/${stunnel::bin_name} ${config_file}",
+            'Type'             => 'exec',
+            'ExecStart'        => "${stunnel::bin_path}/${stunnel::bin_name} ${config_file}",
+            'PrivateTmp'       => true,
+            'ProtectSystem'    => 'strict',
+            'ProtectHome'      => true,
+            'NoNewPrivileges'  => true,
+            'RestrictSUIDSGID' => true,
           },
           install_entry => {
             'WantedBy' => 'multi-user.target',
@@ -399,6 +404,22 @@ define stunnel::connection (
       }
       if $key_file {
         File[$key_file] ~> Service[$service_name]
+      }
+    }
+  }
+
+  if $stunnel::manage_selinux and $facts.dig('os', 'selinux', 'enabled') {
+    if $accept {
+      $port_num = $accept ? {
+        Integer => $accept,
+        String  => Integer(regsubst($accept, '^.*:(\d+)$', '\1')),
+      }
+      if !defined(Selinux::Port["stunnel_port_t_${port_num}"]) {
+        selinux::port { "stunnel_port_t_${port_num}":
+          seltype  => 'stunnel_port_t',
+          protocol => 'tcp',
+          port     => $port_num,
+        }
       }
     }
   }

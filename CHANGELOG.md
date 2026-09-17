@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 * Add `puppetlabs/acl` dependency to enforce strict Administrator/SYSTEM ownership of `.key` files on Windows
 * Implement automatic `chroot` jail creation natively across Linux environments
 * Add `fips` hardening toggle for strict cryptography compliance
+* Integrate `puppet/selinux` as an optional dependency (`$manage_selinux`) to natively enforce Mandatory Access Control (MAC) labeling on Stunnel TCP ports (`stunnel_port_t`) and chroot environments (`stunnel_var_run_t`).
+* Inject modern systemd security boundaries (`ProtectSystem=strict`, `PrivateTmp`, `NoNewPrivileges`, `ProtectHome`, `RestrictSUIDSGID`) directly into generated Linux service units.
 
 ### Changed
 

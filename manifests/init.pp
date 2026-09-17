@@ -43,6 +43,9 @@
 # @param chroot_dir
 #   Path to the directory to use for the chroot jail.
 #
+# @param manage_selinux
+#   Opt-in to manage SELinux contexts and port labeling (Linux only).
+#
 # @example Basic usage
 #   include stunnel
 #
@@ -69,6 +72,7 @@ class stunnel (
   Optional[String]                  $group               = undef,
   Optional[Boolean]                 $chroot_enable       = undef,
   Optional[Stdlib::Absolutepath]    $chroot_dir          = undef,
+  Optional[Boolean]                 $manage_selinux      = undef,
 ) {
   package { $packages:
     ensure   => $packages_ensure,
@@ -81,7 +85,7 @@ class stunnel (
     $log_dir,
   ]
 
-  $stunnel_dirs = if $chroot_enable and $chroot_dir {
+  $stunnel_dirs = if $facts['kernel'] == 'Linux' and $chroot_enable and $chroot_dir {
     $_base_dirs + [$chroot_dir]
   } else {
     $_base_dirs
@@ -94,12 +98,35 @@ class stunnel (
     mode   => '0775',
   }
 
-  if $chroot_enable and $chroot_dir {
+  if $facts['kernel'] == 'Linux' and $chroot_enable and $chroot_dir {
     file { "${chroot_dir}/${pid_dir}":
       ensure => 'directory',
       owner  => $user,
       group  => $group,
       mode   => '0755',
+    }
+  }
+
+  if $manage_selinux and $facts.dig('os', 'selinux', 'enabled') {
+    if $cert_dir {
+      selinux::fcontext { "${cert_dir}(/.*)?":
+        seltype => 'stunnel_etc_t',
+      }
+    }
+    if $config_dir {
+      selinux::fcontext { "${config_dir}(/.*)?":
+        seltype => 'stunnel_etc_t',
+      }
+    }
+    if $log_dir {
+      selinux::fcontext { "${log_dir}(/.*)?":
+        seltype => 'stunnel_log_t',
+      }
+    }
+    if $chroot_enable and $chroot_dir {
+      selinux::fcontext { "${chroot_dir}(/.*)?":
+        seltype => 'stunnel_var_run_t',
+      }
     }
   }
 }

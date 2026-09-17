@@ -137,6 +137,24 @@ describe 'stunnel::connection' do
           it { is_expected.to contain_file('C:\\Program Files (x86)\\stunnel\\config\\puppetlabs_server.conf').with_content(%r{fips = yes}) }
         end
       end
+
+      context 'with manage_selinux => true and accept => 30000' do
+        let(:pre_condition) do
+          'class { "stunnel": manage_selinux => true }'
+        end
+        let(:params) do
+          { accept: 30_000 }
+        end
+
+        if os_facts.dig(:os, 'selinux', 'enabled')
+          it {
+            is_expected.to contain_selinux__port('stunnel_port_t_30000')
+              .with({ seltype: 'stunnel_port_t', protocol: 'tcp', port: 30_000 })
+          }
+        else
+          it { is_expected.not_to contain_selinux__port('stunnel_port_t_30000') }
+        end
+      end
     end
   end
 end
