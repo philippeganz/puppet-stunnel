@@ -56,6 +56,7 @@ The following parameters are available in the `stunnel` class:
 * [`group`](#-stunnel--group)
 * [`chroot_enable`](#-stunnel--chroot_enable)
 * [`chroot_dir`](#-stunnel--chroot_dir)
+* [`manage_selinux`](#-stunnel--manage_selinux)
 
 ##### <a name="-stunnel--bin_name"></a>`bin_name`
 
@@ -159,6 +160,14 @@ Default value: `undef`
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to the directory to use for the chroot jail.
+
+Default value: `undef`
+
+##### <a name="-stunnel--manage_selinux"></a>`manage_selinux`
+
+Data type: `Optional[Boolean]`
+
+Opt-in to manage SELinux contexts and port labeling (Linux only).
 
 Default value: `undef`
 
