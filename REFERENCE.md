@@ -204,6 +204,7 @@ The following parameters are available in the `stunnel::connection` defined type
 * [`enable`](#-stunnel--connection--enable)
 * [`fips`](#-stunnel--connection--fips)
 * [`secure_defaults`](#-stunnel--connection--secure_defaults)
+* [`foreground`](#-stunnel--connection--foreground)
 * [`client`](#-stunnel--connection--client)
 * [`accept`](#-stunnel--connection--accept)
 * [`protocol`](#-stunnel--connection--protocol)
@@ -278,6 +279,14 @@ Default value: `false`
 Data type: `Boolean`
 
 Enable strict cryptography defaults (e.g., TLSv1.3+ min).
+
+Default value: `true`
+
+##### <a name="-stunnel--connection--foreground"></a>`foreground`
+
+Data type: `Boolean`
+
+Run the service in the foreground
 
 Default value: `true`
 
