@@ -407,4 +407,20 @@ define stunnel::connection (
       }
     }
   }
+
+  if $stunnel::manage_selinux and $facts.dig('os', 'selinux', 'enabled') {
+    if $accept {
+      $port_num = $accept ? {
+        Integer => $accept,
+        String  => Integer(regsubst($accept, '^.*:(\d+)$', '\1')),
+      }
+      if !defined(Selinux::Port["stunnel_port_t_${port_num}"]) {
+        selinux::port { "stunnel_port_t_${port_num}":
+          seltype  => 'stunnel_port_t',
+          protocol => 'tcp',
+          port     => $port_num,
+        }
+      }
+    }
+  }
 }
