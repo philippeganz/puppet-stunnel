@@ -93,4 +93,13 @@ class stunnel (
     group  => $group,
     mode   => '0775',
   }
+
+  if $chroot_enable and $chroot_dir {
+    file { "${chroot_dir}/${pid_dir}":
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+      mode   => '0755',
+    }
+  }
 }
