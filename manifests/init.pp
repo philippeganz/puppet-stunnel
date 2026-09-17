@@ -81,7 +81,7 @@ class stunnel (
     $log_dir,
   ]
 
-  $stunnel_dirs = if $chroot_enable and $chroot_dir {
+  $stunnel_dirs = if $facts['kernel'] == 'Linux' and $chroot_enable and $chroot_dir {
     $_base_dirs + [$chroot_dir]
   } else {
     $_base_dirs
@@ -94,7 +94,7 @@ class stunnel (
     mode   => '0775',
   }
 
-  if $chroot_enable and $chroot_dir {
+  if $facts['kernel'] == 'Linux' and $chroot_enable and $chroot_dir {
     file { "${chroot_dir}/${pid_dir}":
       ensure => 'directory',
       owner  => $user,
