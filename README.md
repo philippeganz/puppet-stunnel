@@ -3,8 +3,6 @@
 [![Puppet Forge](https://img.shields.io/puppetforge/v/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
-[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/philippeganz/stunnel.svg)](https://forge.puppetlabs.com/philippeganz/stunnel)
-[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/philippeganz-stunnel)
 [![MIT License](https://img.shields.io/github/license/philippeganz/puppet-stunnel.svg)](LICENSE)
 
 ## Table of Contents
@@ -125,6 +123,25 @@ stunnel::connection {'my_tunnel':
 }
 ```
 
+### Securing connections with SELinux, chroot, and FIPS
+
+By enabling `$manage_selinux` on the base class, the module automatically labels generated ports with `stunnel_port_t` and `chroot` directories with `stunnel_var_run_t`. You can optionally enforce FIPS compliance on specific connections.
+
+```puppet
+class { 'stunnel':
+  manage_selinux => true,
+  chroot_enable  => true,
+}
+
+stunnel::connection { 'secure_tunnel':
+  active          => true,
+  enable          => true,
+  accept          => 9090,
+  connect         => 'localhost:8080',
+  fips            => true,
+}
+```
+
 ## Limitations
 
 Support for older operating system have not been ported from arusso's version.
@@ -135,7 +152,7 @@ This module depends greatly on features implemented by the stunnel team, no warr
 
 This module has been forked from arusso (thanks a lot for your work !).
 
-It has been ported to Puppet 7 with modern dependencies and good practices.
+It has been ported to Puppet 8 with strict custom data types, modern dependencies, and aggressive security boundaries.
 
 Please do contribute if you're missing some features or create an issue.
 
@@ -151,3 +168,4 @@ Please do contribute if you're missing some features or create an issue.
 - [Olivier Fontannaud](https://github.com/albustax)
 - [Philippe Ganz](https://github.com/philippeganz)
 - [Lorenz Bausch](https://github.com/lbausch)
+- [Trey Dockendorf](https://github.com/treydock)
