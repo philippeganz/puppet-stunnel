@@ -541,4 +541,3 @@ Alias of `Enum['present', 'latest']`
 A custom type for Stunnel ports or bind addresses
 
 Alias of `Variant[String, Integer[0]]`
-
